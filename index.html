@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#071923" />
+  <meta name="description" content="Odyssey Lands — a welcoming ocean-themed Minecraft community built around exploration, creativity, and adventure." />
+  <title>Odyssey Lands — Sail Beyond the Horizon</title>
+  <style>
+    :root {
+      --ink: #071923;
+      --ink-2: #0b2631;
+      --deep: #0e3440;
+      --sea: #65b8b0;
+      --sea-soft: #a5d8cf;
+      --foam: #e6f0e8;
+      --brass: #d4ad67;
+      --brass-soft: #efd49c;
+      --muted: #9eb8b8;
+      --line: rgba(165, 216, 207, .2);
+      --max: 1180px;
+      --sans: "Trebuchet MS", "Segoe UI", sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--foam);
+      background: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; }
+    .topline { height: 3px; background: linear-gradient(90deg, var(--brass), var(--sea), transparent); }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(7, 25, 35, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; font-weight: 700; }
+    .mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--brass); color: var(--brass-soft); border-radius: 50%; font-family: var(--serif); font-size: 1.2rem; }
+    nav { display: flex; align-items: center; gap: 25px; color: var(--muted); font-size: .88rem; }
+    nav a:hover { color: var(--foam); }
+    .nav-cta, .button-primary { background: var(--brass); color: #14252a; font-weight: 800; border-radius: 3px; padding: 11px 17px; }
+    .nav-cta:hover, .button-primary:hover { background: var(--brass-soft); }
+    .hero { position: relative; overflow: hidden; min-height: 690px; display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; opacity: .18; pointer-events: none;
+      background-image: linear-gradient(rgba(165,216,207,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(165,216,207,.18) 1px, transparent 1px);
+      background-size: 58px 58px; mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+    .hero::after {
+      content: ""; position: absolute; width: 850px; height: 850px; right: -280px; bottom: -520px;
+      border: 1px solid rgba(165,216,207,.22); border-radius: 50%; box-shadow: 0 0 0 55px rgba(165,216,207,.045), 0 0 0 110px rgba(165,216,207,.035), 0 0 0 165px rgba(165,216,207,.025);
+    }
+    .hero-inner { position: relative; z-index: 1; width: min(100%, 760px); padding: 86px 0 115px; }
+    .eyebrow { color: var(--brass-soft); letter-spacing: .18em; text-transform: uppercase; font-size: .72rem; font-weight: 800; }
+    h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; line-height: 1.05; }
+    h1 { max-width: 760px; margin-top: 18px; color: var(--foam); font-size: clamp(3.4rem, 8vw, 7rem); letter-spacing: -.055em; }
+    .hero-lede { max-width: 610px; margin: 28px 0 34px; color: var(--sea-soft); font-size: clamp(1.05rem, 2vw, 1.3rem); }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+    .button-secondary { padding: 10px 0; color: var(--sea-soft); border-bottom: 1px solid var(--sea); }
+    .button-secondary:hover { color: var(--foam); border-color: var(--foam); }
+    .coordinates { position: absolute; bottom: 34px; right: 0; color: rgba(165,216,207,.55); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; }
+    section { padding: 105px 0; }
+    .section-head { display: grid; grid-template-columns: .75fr 1.25fr; gap: 50px; align-items: end; margin-bottom: 54px; }
+    .section-head h2 { font-size: clamp(2.4rem, 5vw, 4.5rem); color: var(--foam); }
+    .section-head p { max-width: 550px; margin: 0; color: var(--muted); font-size: 1.05rem; }
+    .tide { background: var(--ink-2); }
+    .manifesto { display: grid; grid-template-columns: 1.15fr .85fr; gap: 60px; align-items: start; }
+    .manifesto-copy { font-size: clamp(1.35rem, 2.7vw, 2.1rem); color: var(--sea-soft); line-height: 1.3; }
+    .manifesto-copy em { color: var(--brass-soft); font-family: var(--serif); }
+    .note { border-top: 1px solid var(--line); padding-top: 19px; color: var(--muted); font-size: .92rem; }
+    .districts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .district { min-height: 205px; padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .district-number { color: var(--brass); font-size: .73rem; letter-spacing: .16em; }
+    .district h3 { margin: 30px 0 10px; font-size: 1.7rem; color: var(--foam); }
+    .district p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .journey { background: var(--deep); }
+    .journey-grid { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); }
+    .rank { padding: 25px 18px 8px 0; border-bottom: 1px solid var(--line); position: relative; }
+    .rank:not(:last-child) { margin-right: 18px; }
+    .rank:not(:last-child)::after { content: "→"; position: absolute; right: -4px; top: 25px; color: var(--brass); }
+    .rank strong { display: block; color: var(--brass-soft); font-family: var(--serif); font-size: 1.35rem; font-weight: 400; }
+    .rank span { display: block; margin-top: 7px; color: var(--muted); font-size: .8rem; }
+    .events { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; }
+    .event-list { border-top: 1px solid var(--line); }
+    .event { display: grid; grid-template-columns: 105px 1fr; gap: 22px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .event time { color: var(--brass-soft); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+    .event h3 { font-size: 1.35rem; color: var(--foam); }
+    .event p { margin: 7px 0 0; color: var(--muted); font-size: .88rem; }
+    .join { background: #102c32; text-align: center; position: relative; overflow: hidden; }
+    .join::before { content: "✦"; position: absolute; color: rgba(212,173,103,.16); font-size: 20rem; line-height: .8; left: 50%; top: 5px; transform: translateX(-50%); }
+    .join-inner { position: relative; max-width: 650px; margin: 0 auto; }
+    .join h2 { font-size: clamp(2.6rem, 6vw, 5.2rem); }
+    .join p { color: var(--sea-soft); margin: 24px auto 31px; max-width: 540px; }
+    .details { margin-top: 50px; display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; color: var(--muted); font-size: .78rem; letter-spacing: .07em; text-transform: uppercase; }
+    footer { padding: 27px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .75rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; }
+    .small-brass { color: var(--brass-soft); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .voyager { background: #091f29; }
+    .voyager-layout { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; align-items: start; }
+    .voyager-tabs { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .voyager-tab { cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--muted); padding: 11px 13px; border-radius: 2px; font: inherit; font-size: .82rem; }
+    .voyager-tab:hover, .voyager-tab.active { color: var(--ink); background: var(--sea-soft); border-color: var(--sea-soft); }
+    .voyager-card { min-height: 310px; padding: 34px; border: 1px solid var(--line); background: rgba(7,25,35,.42); position: relative; }
+    .voyager-card::after { content: "✦"; position: absolute; right: 28px; top: 22px; color: var(--brass); font-size: 1.4rem; }
+    .voyager-card h3 { color: var(--foam); font-size: clamp(2rem, 4vw, 3.5rem); }
+    .voyager-card p { max-width: 590px; color: var(--sea-soft); font-size: 1.05rem; }
+    .voyager-list { display: flex; flex-wrap: wrap; gap: 9px 24px; margin-top: 25px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .83rem; }
+    .voyager-list span::before { content: "—  "; color: var(--brass); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
+    @media (max-width: 800px) {
+      .shell { width: min(calc(100% - 34px), var(--max)); }
+      nav a:not(.nav-cta) { display: none; }
+      .hero { min-height: 610px; }
+      .hero-inner { padding: 76px 0 105px; }
+      .coordinates { left: 0; right: auto; }
+      .section-head, .manifesto, .events { grid-template-columns: 1fr; gap: 24px; }
+      .districts { grid-template-columns: repeat(2, 1fr); }
+      .journey-grid { grid-template-columns: 1fr; }
+      .rank { padding: 18px 0; margin: 0 !important; }
+      .rank:not(:last-child)::after { content: "↓"; top: auto; right: 8px; bottom: -12px; }
+      .footer-row { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .districts { grid-template-columns: 1fr; }
+      h1 { font-size: 3.45rem; }
+      .event { grid-template-columns: 1fr; gap: 4px; }
+      section { padding: 78px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header>
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="Odyssey Lands home"><span class="mark">O</span><span>Odyssey Lands</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#world">The world</a>
+        <a href="#voyager">Your path</a>
+        <a href="#journey">Ranks</a>
+        <a href="#events">Events</a>
+        <a class="nav-cta" href="#join">Join the voyage</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-inner">
+        <div class="eyebrow">A Minecraft community on the open sea</div>
+        <h1>Sail beyond the horizon.</h1>
+        <p class="hero-lede">Odyssey Lands is a welcoming world of builders, explorers, and storytellers—where every harbour has a history and every player can chart their own course.</p>
+        <div class="actions">
+          <a class="button-primary" href="#join">Join the community</a>
+          <a class="button-secondary" href="#world">Explore the world&nbsp; ↓</a>
+        </div>
+        <div class="coordinates">06° 12′ N &nbsp;·&nbsp; 134° 35′ W &nbsp;·&nbsp; EST. 2026</div>
+      </div>
+    </section>
+
+    <section id="world" class="tide">
+      <div class="shell">
+        <div class="section-head">
+          <h2>A world with a tide of its own.</h2>
+          <p>Odyssey Lands is being shaped as a shared ocean frontier: six districts, five ranks, and plenty of room for your build to become part of the story.</p>
+        </div>
+        <div class="manifesto">
+          <div class="manifesto-copy">Build something useful. Discover somewhere unexpected. Leave the shoreline better than you found it. <em>That is the Odyssey.</em></div>
+          <div class="note">Our community grows through thoughtful building, relaxed conversation, and events that give everyone a reason to log in—not through noise or pressure.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <h2>Six shores to discover.</h2>
+          <p>From the first pier to the farthest waystation, each district gives the world a different rhythm.</p>
+        </div>
+        <div class="districts">
+          <article class="district"><div class="district-number">01 / THE HARBOUR</div><h3>First Light</h3><p>The welcoming centre of the community: orientation, trade, and the first view of the sea.</p></article>
+          <article class="district"><div class="district-number">02 / TIDEWALKER COAST</div><h3>Working Waters</h3><p>Coastal builds, gathering places, and a shoreline made for slow exploration.</p></article>
+          <article class="district"><div class="district-number">03 / THE OPEN SEA</div><h3>Uncharted</h3><p>Room for bold expeditions, ambitious projects, and stories that have not been written yet.</p></article>
+          <article class="district"><div class="district-number">04 / WESTERN REACH</div><h3>Waystations</h3><p>Small landmarks and useful shelters for travellers moving beyond the familiar.</p></article>
+          <article class="district"><div class="district-number">05 / DEEP CURRENT</div><h3>Hidden Depths</h3><p>A place for mysteries, challenges, and the kind of discoveries worth remembering.</p></article>
+          <article class="district"><div class="district-number">06 / THE HORIZON</div><h3>To Be Charted</h3><p>The next chapter belongs to the community. Bring an idea and help define it.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey" class="journey">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Find your place aboard.</h2>
+          <p>Ranks are a gentle progression through the community—not a race. Participate, contribute, and make the voyage yours.</p>
+        </div>
+        <div class="journey-grid">
+          <div class="rank"><strong>Drifter</strong><span>New to the waters</span></div>
+          <div class="rank"><strong>Deckhand</strong><span>Finding your rhythm</span></div>
+          <div class="rank"><strong>Navigator</strong><span>Helping chart the way</span></div>
+          <div class="rank"><strong>Quartermaster</strong><span>Stewarding the community</span></div>
+          <div class="rank"><strong>Warden</strong><span>Guarding the horizon</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="voyager" class="voyager">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>There is more than one way to sail.</h2>
+          <p>Pick the path that sounds most like you. You can change course whenever you want.</p>
+        </div>
+        <div class="voyager-layout reveal">
+          <div>
+            <div class="eyebrow">Choose your berth</div>
+            <div class="voyager-tabs" role="tablist" aria-label="Choose a voyager path">
+              <button class="voyager-tab active" type="button" role="tab" aria-selected="true" data-voyager="builder">The Builder</button>
+              <button class="voyager-tab" type="button" role="tab" aria-selected="false" data-voyager="explorer">The Explorer</button>
+              <button class="voyager-tab" type="button" role="tab" aria-selected="false" data-voyager="storyteller">The Storyteller</button>
+            </div>
+          </div>
+          <article class="voyager-card" aria-live="polite">
+            <h3 id="voyager-title">The Builder</h3>
+            <p id="voyager-copy">You notice the empty shoreline and immediately imagine what belongs there. In Odyssey Lands, your details become part of someone else's favourite route.</p>
+            <div class="voyager-list" id="voyager-list"><span>Collaborative projects</span><span>Useful landmarks</span><span>Room to make it yours</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="events">
+      <div class="shell events">
+        <div>
+          <div class="eyebrow">The ship's calendar</div>
+          <h2 style="margin-top:16px; font-size:clamp(2.5rem,5vw,4.4rem)">There is always another shore.</h2>
+        </div>
+        <div class="event-list">
+          <article class="event"><time>Saturday<br>Expedition</time><div><h3>Follow the tide.</h3><p>Join the crew for a relaxed exploration, build tour, or discovery beyond the usual routes.</p></div></article>
+          <article class="event"><time>Community<br>Builds</time><div><h3>Make the map richer.</h3><p>Collaborative projects, useful landmarks, and small details that make the world feel lived in.</p></div></article>
+          <article class="event"><time>Coming<br>Soon</time><div><h3>Your event could be here.</h3><p>Have an idea for a challenge, story, or gathering? Bring it aboard.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="join">
+      <div class="shell join-inner">
+        <div class="eyebrow">Your next adventure starts here</div>
+        <h2>Ready to cast off?</h2>
+        <p>Come meet the crew, see what is being built, and find a corner of the world that feels like yours.</p>
+        <a class="button-primary" href="https://discord.gg/fvbDtwzPWP">Enter the Discord harbour</a>
+        <div class="details"><span>Minecraft: OdysseyLand.aternos.me:46767</span><span>Friendly community</span><span>Build • Explore • Belong</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const voyagerData = {
+      builder: {
+        title: 'The Builder',
+        copy: 'You notice the empty shoreline and immediately imagine what belongs there. In Odyssey Lands, your details become part of someone else\'s favourite route.',
+        list: ['Collaborative projects', 'Useful landmarks', 'Room to make it yours']
+      },
+      explorer: {
+        title: 'The Explorer',
+        copy: 'You take the longer route just to see what is beyond the next bend. There are coastlines to map, waystations to find, and quiet places waiting for a story.',
+        list: ['Saturday expeditions', 'Hidden corners', 'New routes to chart']
+      },
+      storyteller: {
+        title: 'The Storyteller',
+        copy: 'You turn a build into a memory and a meeting into a chapter. Bring the lore, the little details, and the ideas that make a world feel alive.',
+        list: ['Community lore', 'Events and gatherings', 'Characters and legends']
+      }
+    };
+    const title = document.getElementById('voyager-title');
+    const copy = document.getElementById('voyager-copy');
+    const list = document.getElementById('voyager-list');
+    document.querySelectorAll('.voyager-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const data = voyagerData[tab.dataset.voyager];
+        document.querySelectorAll('.voyager-tab').forEach((item) => {
+          const active = item === tab;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        title.textContent = data.title;
+        copy.textContent = data.copy;
+        list.innerHTML = data.list.map((item) => `<span>${item}</span>`).join('');
+      });
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+  </script>
+
+  <footer>
+    <div class="shell footer-row"><span>© 2026 Odyssey Lands</span><span class="small-brass">Sail beyond the horizon.</span><span>Built by the crew.</span></div>
+  </footer>
+</body>
+</html>
