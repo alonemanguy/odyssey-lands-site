@@ -125,7 +125,22 @@
     .route.one { width: 150px; left: 27%; top: 53%; transform: rotate(-18deg); }
     .route.two { width: 145px; left: 52%; top: 45%; transform: rotate(24deg); }
     .route.three { width: 110px; left: 60%; top: 70%; transform: rotate(-42deg); }
-    .chart-node { position: absolute; z-index: 2; width: 14px; height: 14px; border: 2px solid var(--brass-soft); border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 5px rgba(212,173,103,.1); }
+    .chart-node { position: absolute; z-index: 2; width: 14px; height: 14px; border: 2px solid var(--brass-soft); border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 5px rgba(212,173,103,.1); cursor: pointer; appearance: none; padding: 0; text-align: left; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+    .chart-node:hover, .chart-node:focus-visible { transform: scale(1.18); outline: none; background: var(--brass); box-shadow: 0 0 0 7px rgba(212,173,103,.16); }
+    .chart-node.active { background: var(--brass); box-shadow: 0 0 0 7px rgba(212,173,103,.2); }
+    .chart-detail { margin-top: 18px; padding: 22px 24px; border: 1px solid var(--line); background: rgba(7,25,35,.68); }
+    .chart-detail-kicker { color: var(--brass-soft); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; }
+    .chart-detail h3 { margin-top: 8px; color: var(--foam); font-size: 1.75rem; }
+    .chart-detail p { margin: 8px 0 0; color: var(--sea-soft); font-size: .9rem; }
+    .chart-detail-meta { display: block; margin-top: 15px; color: var(--muted); font-size: .75rem; }
+    .route-finder { grid-column: 1 / -1; margin-top: 38px; padding: 28px; border: 1px solid var(--line); background: rgba(7,25,35,.38); }
+    .route-finder h3 { margin-top: 8px; color: var(--foam); font-size: clamp(1.8rem, 4vw, 2.7rem); }
+    .route-options { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .route-option, .event-filter { cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--muted); padding: 10px 13px; border-radius: 2px; font: inherit; font-size: .82rem; transition: color .2s ease, background .2s ease, border-color .2s ease; }
+    .route-option:hover, .route-option:focus-visible, .route-option.active, .event-filter:hover, .event-filter:focus-visible, .event-filter.active { color: var(--ink); background: var(--sea-soft); border-color: var(--sea-soft); outline: none; }
+    .route-result { min-height: 2.7em; margin: 18px 0 0; color: var(--brass-soft); font-family: var(--serif); font-size: 1.2rem; }
+    .event-filters { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 18px; }
+    .event[hidden] { display: none; }
     .chart-node span { position: absolute; left: 22px; top: -7px; white-space: nowrap; color: var(--foam); font-family: var(--serif); font-size: 1rem; }
     .chart-node small { display: block; margin-top: 17px; width: 120px; color: var(--muted); font: .65rem var(--sans); line-height: 1.3; }
     .node-harbour { left: 24%; top: 54%; }
@@ -253,10 +268,16 @@
           <div class="chart-board" aria-label="Concept map showing four Odyssey Lands locations">
             <div class="chart-note">ODYSSEY LANDS / FIELD CHART 01</div>
             <div class="route one"></div><div class="route two"></div><div class="route three"></div>
-            <div class="chart-node node-harbour"><span>The Harbour</span><small>Arrival and first light</small></div>
-            <div class="chart-node node-coast"><span>Tidewalker Coast</span><small>Working waters and shore builds</small></div>
-            <div class="chart-node node-waystation"><span>Westward Waystation</span><small>A useful rest beyond the familiar</small></div>
-            <div class="chart-node node-horizon"><span>The Horizon</span><small>Uncharted, for now</small></div>
+            <button class="chart-node node-harbour active" type="button" data-spot="harbour" aria-label="Show details for The Harbour"><span>The Harbour</span><small>Arrival and first light</small></button>
+            <button class="chart-node node-coast" type="button" data-spot="coast" aria-label="Show details for Tidewalker Coast"><span>Tidewalker Coast</span><small>Working waters and shore builds</small></button>
+            <button class="chart-node node-waystation" type="button" data-spot="waystation" aria-label="Show details for Westward Waystation"><span>Westward Waystation</span><small>A useful rest beyond the familiar</small></button>
+            <button class="chart-node node-horizon" type="button" data-spot="horizon" aria-label="Show details for The Horizon"><span>The Horizon</span><small>Uncharted, for now</small></button>
+          </div>
+          <div class="chart-detail" id="chart-detail" aria-live="polite">
+            <div class="chart-detail-kicker">Selected location</div>
+            <h3 id="chart-detail-title">The Harbour</h3>
+            <p id="chart-detail-copy">Arrival, orientation, trade, and the first view of the sea. Start here when you want to meet the crew and find your bearings.</p>
+            <span class="chart-detail-meta" id="chart-detail-meta">DISTRICT 01 · FIRST LIGHT</span>
           </div>
         </div>
       </div>
@@ -292,10 +313,18 @@
           <div class="eyebrow">The ship's calendar</div>
           <h2 style="margin-top:16px; font-size:clamp(2.5rem,5vw,4.4rem)">There is always another shore.</h2>
         </div>
-        <div class="event-list">
-          <article class="event"><time>Saturday<br>Expedition</time><div><h3>Follow the tide.</h3><p>Join the crew for a relaxed exploration, build tour, or discovery beyond the usual routes.</p></div></article>
-          <article class="event"><time>Community<br>Builds</time><div><h3>Make the map richer.</h3><p>Collaborative projects, useful landmarks, and small details that make the world feel lived in.</p></div></article>
-          <article class="event"><time>Coming<br>Soon</time><div><h3>Your event could be here.</h3><p>Have an idea for a challenge, story, or gathering? Bring it aboard.</p></div></article>
+        <div>
+          <div class="event-filters" role="group" aria-label="Filter community events">
+            <button class="event-filter active" type="button" data-filter="all">All</button>
+            <button class="event-filter" type="button" data-filter="expedition">Expeditions</button>
+            <button class="event-filter" type="button" data-filter="build">Builds</button>
+            <button class="event-filter" type="button" data-filter="community">Community</button>
+          </div>
+          <div class="event-list">
+            <article class="event" data-kind="expedition"><time>Saturday<br>Expedition</time><div><h3>Follow the tide.</h3><p>Join the crew for a relaxed exploration, build tour, or discovery beyond the usual routes.</p></div></article>
+            <article class="event" data-kind="build"><time>Community<br>Builds</time><div><h3>Make the map richer.</h3><p>Collaborative projects, useful landmarks, and small details that make the world feel lived in.</p></div></article>
+            <article class="event" data-kind="community"><time>Coming<br>Soon</time><div><h3>Your event could be here.</h3><p>Have an idea for a challenge, story, or gathering? Bring it aboard.</p></div></article>
+          </div>
         </div>
       </div>
     </section>
@@ -343,6 +372,42 @@
         title.textContent = data.title;
         copy.textContent = data.copy;
         list.innerHTML = data.list.map((item) => `<span>${item}</span>`).join('');
+      });
+    });
+    const chartData = {
+      harbour: { title: 'The Harbour', copy: 'Arrival, orientation, trade, and the first view of the sea. Start here when you want to meet the crew and find your bearings.', meta: 'DISTRICT 01 · FIRST LIGHT' },
+      coast: { title: 'Tidewalker Coast', copy: 'A working shoreline for coastal builds, gathering places, and the slower kind of exploration that rewards attention.', meta: 'DISTRICT 02 · WORKING WATERS' },
+      waystation: { title: 'Westward Waystation', copy: 'A useful rest beyond the familiar: a small landmark for travellers, builders, and anyone heading farther west.', meta: 'DISTRICT 04 · WESTERN REACH' },
+      horizon: { title: 'The Horizon', copy: 'The next chapter is still open. Bring a build, an idea, or a route worth charting and help define what comes next.', meta: 'DISTRICT 06 · TO BE CHARTED' }
+    };
+    const chartTitle = document.getElementById('chart-detail-title');
+    const chartCopy = document.getElementById('chart-detail-copy');
+    const chartMeta = document.getElementById('chart-detail-meta');
+    document.querySelectorAll('.chart-node').forEach((node) => {
+      node.addEventListener('click', () => {
+        const data = chartData[node.dataset.spot];
+        document.querySelectorAll('.chart-node').forEach((item) => item.classList.toggle('active', item === node));
+        chartTitle.textContent = data.title;
+        chartCopy.textContent = data.copy;
+        chartMeta.textContent = data.meta;
+      });
+    });
+    const routeResults = {
+      build: 'Start as The Builder — try a collaborative project or make one useful corner of the Harbour yours.',
+      explore: 'Start as The Explorer — watch for a Saturday expedition and take the longer route.',
+      story: 'Start as The Storyteller — bring a bit of lore, a gathering, or a detail people will remember.'
+    };
+    document.querySelectorAll('.route-option').forEach((option) => {
+      option.addEventListener('click', () => {
+        document.querySelectorAll('.route-option').forEach((item) => item.classList.toggle('active', item === option));
+        document.getElementById('route-result').textContent = routeResults[option.dataset.routeAnswer];
+      });
+    });
+    document.querySelectorAll('.event-filter').forEach((filter) => {
+      filter.addEventListener('click', () => {
+        const value = filter.dataset.filter;
+        document.querySelectorAll('.event-filter').forEach((item) => item.classList.toggle('active', item === filter));
+        document.querySelectorAll('.event').forEach((event) => { event.hidden = value !== 'all' && event.dataset.kind !== value; });
       });
     });
     const observer = new IntersectionObserver((entries) => {
