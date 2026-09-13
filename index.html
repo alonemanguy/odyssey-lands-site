@@ -370,7 +370,7 @@
             <p id="map-detail-copy">The welcoming centre of the community: orientation, trade, and the first view of the sea.</p>
             <span class="map-detail-meta" id="map-detail-meta">PROTECTED HEART · ACTIVE HARBOUR</span>
             <span class="map-detail-coords" id="map-detail-coords">X 560–575 · Y 61–69 · Z -496 to -481</span>
-            <a class="map-detail-link" href="https://discord.gg/fvbDtwzPWP">Ask in the Discord harbour →</a>
+            <a class="map-detail-link" id="map-detail-link" href="https://discord.com/channels/1345963951724171364/1345975824427257866">Open #coordinates-sharing →</a>
           </div>
           <div class="shore-map-wrap">
             <div class="shore-map" aria-label="Interactive six-shore district map">
@@ -593,17 +593,18 @@
 
 
     const mapData = {
-      harbour: { title: 'The Harbour', copy: 'The welcoming centre of the community: orientation, trade, and the first view of the sea.', meta: 'PROTECTED HEART · ACTIVE HARBOUR', coords: 'X 560–575 · Y 61–69 · Z -496 to -481' },
-      coast: { title: 'Tidewalker Coast', copy: 'The active working shoreline: the Tidewalker Coast blueprint and West Pier Extension are placed and archive-verified.', meta: 'PLACED · ARCHIVE-VERIFIED · 195 BLOCKS', coords: 'X 527–540 · Y 63–67 · Z -456 to -448' },
-      opensea: { title: 'The Open Sea', copy: 'A voyage destination for bold expeditions and stories not yet written. No permanent build coordinate has been assigned.', meta: 'VOYAGE DESTINATION · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition' },
-      waystation: { title: 'Western Reach', copy: 'A completed waystation beyond the familiar, built as a useful rest for travellers moving west.', meta: 'PLACED · ARCHIVE-VERIFIED · 97 BLOCKS', coords: 'X 512–519 · Y 63–65 · Z -456 to -448' },
-      deepcurrent: { title: 'Deep Current', copy: 'A future adventure area for mysteries and challenges. It is intentionally not assigned a permanent build coordinate yet.', meta: 'ADVENTURE AREA · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition' },
-      horizon: { title: 'The Horizon', copy: 'The next chapter belongs to the community. Bring a build, an idea, or a route worth charting.', meta: 'COMMUNITY-PLANNED · NOT YET ASSIGNED', coords: 'Coordinates pending a future plan' }
+      harbour: { title: 'The Harbour', copy: 'The welcoming centre of the community: orientation, trade, and the first view of the sea.', meta: 'PROTECTED HEART · ACTIVE HARBOUR', coords: 'X 560–575 · Y 61–69 · Z -496 to -481', channel: 'coordinates-sharing', channelUrl: 'https://discord.com/channels/1345963951724171364/1345975824427257866' },
+      coast: { title: 'Tidewalker Coast', copy: 'The active working shoreline: the Tidewalker Coast blueprint and West Pier Extension are placed and archive-verified.', meta: 'PLACED · ARCHIVE-VERIFIED · 195 BLOCKS', coords: 'X 527–540 · Y 63–67 · Z -456 to -448', channel: 'build-showcase', channelUrl: 'https://discord.com/channels/1345963951724171364/1345974994584207361' },
+      opensea: { title: 'The Open Sea', copy: 'A voyage destination for bold expeditions and stories not yet written. No permanent build coordinate has been assigned.', meta: 'VOYAGE DESTINATION · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition', channel: 'event-announcements', channelUrl: 'https://discord.com/channels/1345963951724171364/1345976335700328530' },
+      waystation: { title: 'Western Reach', copy: 'A completed waystation beyond the familiar, built as a useful rest for travellers moving west.', meta: 'PLACED · ARCHIVE-VERIFIED · 97 BLOCKS', coords: 'X 512–519 · Y 63–65 · Z -456 to -448', channel: 'coordinates-sharing', channelUrl: 'https://discord.com/channels/1345963951724171364/1345975824427257866' },
+      deepcurrent: { title: 'Deep Current', copy: 'A future adventure area for mysteries and challenges. It is intentionally not assigned a permanent build coordinate yet.', meta: 'ADVENTURE AREA · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition', channel: 'event-announcements', channelUrl: 'https://discord.com/channels/1345963951724171364/1345976335700328530' },
+      horizon: { title: 'The Horizon', copy: 'The next chapter belongs to the community. Bring a build, an idea, or a route worth charting.', meta: 'COMMUNITY-PLANNED · NOT YET ASSIGNED', coords: 'Coordinates pending a future plan', channel: '🧿suggestions', channelUrl: 'https://discord.com/channels/1345963951724171364/1345974711833853952' }
     };
     const mapTitle = document.getElementById('map-detail-title');
     const mapCopy = document.getElementById('map-detail-copy');
     const mapMeta = document.getElementById('map-detail-meta');
     const mapCoords = document.getElementById('map-detail-coords');
+    const mapLink = document.getElementById('map-detail-link');
     document.querySelectorAll('.map-shore').forEach((shore) => {
       shore.addEventListener('click', () => {
         const data = mapData[shore.dataset.mapSpot];
@@ -612,6 +613,8 @@
         mapCopy.textContent = data.copy;
         mapMeta.textContent = data.meta;
         mapCoords.textContent = data.coords;
+        mapLink.href = data.channelUrl;
+        mapLink.textContent = 'Open #' + data.channel + ' →';
       });
     });
 
