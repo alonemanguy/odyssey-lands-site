@@ -228,6 +228,14 @@
     .map-detail-link { display: inline-block; margin-top: 20px; color: var(--brass-soft); border-bottom: 1px solid rgba(239,212,156,.5); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
     .map-detail-link:hover { color: var(--foam); border-color: var(--foam); }
 
+
+    .map-detail-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
+    .map-detail-actions .map-detail-link { margin-top: 0; }
+    .copy-coords { cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--sea-soft); padding: 8px 10px; border-radius: 2px; font: inherit; font-size: .73rem; letter-spacing: .06em; text-transform: uppercase; }
+    .copy-coords:hover, .copy-coords:focus-visible { border-color: var(--sea-soft); color: var(--ink); background: var(--sea-soft); outline: none; }
+    .copy-coords[hidden] { display: none; }
+    .copy-status { color: var(--brass-soft); font-size: .73rem; }
+
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
     @media (max-width: 800px) {
       .shell { width: min(calc(100% - 34px), var(--max)); }
@@ -370,7 +378,11 @@
             <p id="map-detail-copy">The welcoming centre of the community: orientation, trade, and the first view of the sea.</p>
             <span class="map-detail-meta" id="map-detail-meta">PROTECTED HEART · ACTIVE HARBOUR</span>
             <span class="map-detail-coords" id="map-detail-coords">X 560–575 · Y 61–69 · Z -496 to -481</span>
-            <a class="map-detail-link" id="map-detail-link" href="https://discord.com/channels/1345963951724171364/1345975824427257866">Open #coordinates-sharing →</a>
+            <div class="map-detail-actions">
+              <a class="map-detail-link" id="map-detail-link" href="https://discord.com/channels/1345963951724171364/1345975824427257866">Open #coordinates-sharing →</a>
+              <button class="copy-coords" id="copy-map-coords" type="button">Copy coordinates</button>
+              <span class="copy-status" id="copy-status" aria-live="polite"></span>
+            </div>
           </div>
           <div class="shore-map-wrap">
             <div class="shore-map" aria-label="Interactive six-shore district map">
@@ -593,18 +605,20 @@
 
 
     const mapData = {
-      harbour: { title: 'The Harbour', copy: 'The welcoming centre of the community: orientation, trade, and the first view of the sea.', meta: 'PROTECTED HEART · ACTIVE HARBOUR', coords: 'X 560–575 · Y 61–69 · Z -496 to -481', channel: 'coordinates-sharing', channelUrl: 'https://discord.com/channels/1345963951724171364/1345975824427257866' },
-      coast: { title: 'Tidewalker Coast', copy: 'The active working shoreline: the Tidewalker Coast blueprint and West Pier Extension are placed and archive-verified.', meta: 'PLACED · ARCHIVE-VERIFIED · 195 BLOCKS', coords: 'X 527–540 · Y 63–67 · Z -456 to -448', channel: 'build-showcase', channelUrl: 'https://discord.com/channels/1345963951724171364/1345974994584207361' },
-      opensea: { title: 'The Open Sea', copy: 'A voyage destination for bold expeditions and stories not yet written. No permanent build coordinate has been assigned.', meta: 'VOYAGE DESTINATION · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition', channel: 'event-announcements', channelUrl: 'https://discord.com/channels/1345963951724171364/1345976335700328530' },
-      waystation: { title: 'Western Reach', copy: 'A completed waystation beyond the familiar, built as a useful rest for travellers moving west.', meta: 'PLACED · ARCHIVE-VERIFIED · 97 BLOCKS', coords: 'X 512–519 · Y 63–65 · Z -456 to -448', channel: 'coordinates-sharing', channelUrl: 'https://discord.com/channels/1345963951724171364/1345975824427257866' },
-      deepcurrent: { title: 'Deep Current', copy: 'A future adventure area for mysteries and challenges. It is intentionally not assigned a permanent build coordinate yet.', meta: 'ADVENTURE AREA · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition', channel: 'event-announcements', channelUrl: 'https://discord.com/channels/1345963951724171364/1345976335700328530' },
-      horizon: { title: 'The Horizon', copy: 'The next chapter belongs to the community. Bring a build, an idea, or a route worth charting.', meta: 'COMMUNITY-PLANNED · NOT YET ASSIGNED', coords: 'Coordinates pending a future plan', channel: '🧿suggestions', channelUrl: 'https://discord.com/channels/1345963951724171364/1345974711833853952' }
+      harbour: { title: 'The Harbour', copy: 'The welcoming centre of the community: orientation, trade, and the first view of the sea.', meta: 'PROTECTED HEART · ACTIVE HARBOUR', coords: 'X 560–575 · Y 61–69 · Z -496 to -481', copyable: true, channel: 'coordinates-sharing', channelUrl: 'https://discord.com/channels/1345963951724171364/1345975824427257866' },
+      coast: { title: 'Tidewalker Coast', copy: 'The active working shoreline: the Tidewalker Coast blueprint and West Pier Extension are placed and archive-verified.', meta: 'PLACED · ARCHIVE-VERIFIED · 195 BLOCKS', coords: 'X 527–540 · Y 63–67 · Z -456 to -448', copyable: true, channel: 'build-showcase', channelUrl: 'https://discord.com/channels/1345963951724171364/1345974994584207361' },
+      opensea: { title: 'The Open Sea', copy: 'A voyage destination for bold expeditions and stories not yet written. No permanent build coordinate has been assigned.', meta: 'VOYAGE DESTINATION · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition', copyable: false, channel: 'event-announcements', channelUrl: 'https://discord.com/channels/1345963951724171364/1345976335700328530' },
+      waystation: { title: 'Western Reach', copy: 'A completed waystation beyond the familiar, built as a useful rest for travellers moving west.', meta: 'PLACED · ARCHIVE-VERIFIED · 97 BLOCKS', coords: 'X 512–519 · Y 63–65 · Z -456 to -448', copyable: true, channel: 'coordinates-sharing', channelUrl: 'https://discord.com/channels/1345963951724171364/1345975824427257866' },
+      deepcurrent: { title: 'Deep Current', copy: 'A future adventure area for mysteries and challenges. It is intentionally not assigned a permanent build coordinate yet.', meta: 'ADVENTURE AREA · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition', copyable: false, channel: 'event-announcements', channelUrl: 'https://discord.com/channels/1345963951724171364/1345976335700328530' },
+      horizon: { title: 'The Horizon', copy: 'The next chapter belongs to the community. Bring a build, an idea, or a route worth charting.', meta: 'COMMUNITY-PLANNED · NOT YET ASSIGNED', coords: 'Coordinates pending a future plan', copyable: false, channel: '🧿suggestions', channelUrl: 'https://discord.com/channels/1345963951724171364/1345974711833853952' }
     };
     const mapTitle = document.getElementById('map-detail-title');
     const mapCopy = document.getElementById('map-detail-copy');
     const mapMeta = document.getElementById('map-detail-meta');
     const mapCoords = document.getElementById('map-detail-coords');
     const mapLink = document.getElementById('map-detail-link');
+    const copyCoords = document.getElementById('copy-map-coords');
+    const copyStatus = document.getElementById('copy-status');
     document.querySelectorAll('.map-shore').forEach((shore) => {
       shore.addEventListener('click', () => {
         const data = mapData[shore.dataset.mapSpot];
@@ -615,7 +629,20 @@
         mapCoords.textContent = data.coords;
         mapLink.href = data.channelUrl;
         mapLink.textContent = 'Open #' + data.channel + ' →';
+        copyCoords.hidden = !data.copyable;
+        copyCoords.dataset.coords = data.copyable ? data.coords : '';
+        copyStatus.textContent = '';
       });
+    });
+
+    copyCoords.addEventListener('click', async () => {
+      if (!copyCoords.dataset.coords) return;
+      try {
+        await navigator.clipboard.writeText(copyCoords.dataset.coords);
+        copyStatus.textContent = 'Coordinates copied.';
+      } catch (error) {
+        copyStatus.textContent = 'Copy unavailable — select the coordinates above.';
+      }
     });
 
     const observer = new IntersectionObserver((entries) => {
