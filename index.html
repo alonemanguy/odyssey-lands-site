@@ -6,10 +6,15 @@
   <meta name="theme-color" content="#071923" />
   <link rel="icon" type="image/png" href="assets/odyssey-emblem.png" />
   <link rel="apple-touch-icon" href="assets/odyssey-emblem.png" />
-  <meta name="description" content="Odyssey Lands — a welcoming ocean-themed Minecraft community built around exploration, creativity, and adventure." />
+  <meta name="description" content="Odyssey Lands — a welcoming ocean-themed Minecraft community built around exploration, creativity, and adventure. See what is real, check the harbour, and join the crew." />
+  <link rel="canonical" href="https://alonemanguy.github.io/odyssey-lands-site/" />
   <meta property="og:title" content="Odyssey Lands — Sail Beyond the Horizon" />
-  <meta property="og:description" content="Build, explore, and belong in an ocean-themed Minecraft community." />
+  <meta property="og:description" content="Build, explore, and belong in an ocean-themed Minecraft community. Check the live harbour and meet the crew." />
   <meta property="og:image" content="https://alonemanguy.github.io/odyssey-lands-site/assets/odyssey-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Odyssey Lands — Sail Beyond the Horizon" />
+  <meta name="twitter:description" content="Build, explore, and belong in an ocean-themed Minecraft community." />
+  <meta name="twitter:image" content="https://alonemanguy.github.io/odyssey-lands-site/assets/odyssey-banner.png" />
   <title>Odyssey Lands — Sail Beyond the Horizon</title>
   <style>
     :root {
@@ -254,6 +259,42 @@
     .project-status-card strong { display: block; margin-top: 17px; color: var(--foam); font-family: var(--serif); font-size: 1.35rem; font-weight: 400; }
     .project-status-card p { margin: 7px 0 0; color: var(--muted); font-size: .8rem; }
     .project-state { color: var(--brass-soft); font-size: .65rem; letter-spacing: .13em; text-transform: uppercase; }
+    .proof { background: #0b2631; }
+    .proof-grid { display: grid; grid-template-columns: 1fr 1fr 1.08fr; gap: 16px; }
+    .proof-card, .proof-note { min-width: 0; border: 1px solid var(--line); background: rgba(7,25,35,.58); }
+    .proof-card { margin: 0; }
+    .proof-card img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; image-rendering: auto; }
+    .proof-card figcaption { padding: 16px 17px 18px; }
+    .proof-card strong { display: block; color: var(--foam); font-family: var(--serif); font-size: 1.15rem; font-weight: 400; }
+    .proof-card span { display: block; margin-top: 5px; color: var(--muted); font-size: .78rem; }
+    .proof-note { display: flex; flex-direction: column; justify-content: space-between; padding: 24px; }
+    .proof-note h3 { margin-top: 12px; color: var(--foam); font-size: 2rem; }
+    .proof-note p { margin: 14px 0 0; color: var(--muted); font-size: .9rem; }
+    .proof-note .proof-link { display: inline-block; align-self: flex-start; margin-top: 25px; color: var(--sea-soft); border-bottom: 1px solid rgba(165,216,207,.45); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; }
+    .proof-note .proof-link:hover { color: var(--foam); border-color: var(--foam); }
+    .voyager-next { display: inline-block; margin-top: 24px; color: var(--brass-soft); border-bottom: 1px solid rgba(239,212,156,.5); font-size: .8rem; letter-spacing: .07em; text-transform: uppercase; }
+    .voyager-next:hover { color: var(--foam); border-color: var(--foam); }
+    @media (max-width: 800px) {
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .proof-note { grid-column: 1 / -1; min-height: 210px; }
+      .status-metrics { grid-template-columns: 1fr 1fr; }
+      .status-metrics > span:first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-note { grid-column: auto; min-height: 0; }
+      .status-metrics { grid-template-columns: 1fr; }
+      .status-metrics > span:first-child { grid-column: auto; }
+      .discord-card { align-items: flex-start; flex-direction: column; }
+      .shore-map { min-height: 600px; }
+      .shore-label { min-width: 96px; font-size: .9rem; }
+      .shore-harbour { left: 8%; top: 58%; }
+      .shore-coast { left: 23%; top: 38%; }
+      .shore-opensea { left: 38%; top: 73%; }
+      .shore-waystation { left: 58%; top: 45%; }
+      .shore-deepcurrent { left: 40%; top: 13%; }
+      .shore-horizon { left: 62%; top: 20%; }
+    }
 
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
     @media (max-width: 800px) {
@@ -289,6 +330,7 @@
         <a href="#voyager">Your path</a>
         <a href="#journey">Ranks</a>
         <a href="#events">Events</a>
+        <a href="#proof">Activity</a>
         <a href="#status">Status</a>
         <a class="nav-cta" href="#join">Join the voyage</a>
       </nav>
@@ -301,10 +343,10 @@
         <img class="hero-mark" src="assets/odyssey-emblem.png" alt="Odyssey Lands compass emblem with the name Odyssey Lands">
         <div class="eyebrow">A Minecraft community on the open sea</div>
         <h1>Sail beyond the horizon.</h1>
-        <p class="hero-lede">Odyssey Lands is a welcoming world of builders, explorers, and storytellers—where every harbour has a history and every player can chart their own course.</p>
+        <p class="hero-lede">Odyssey Lands is a welcoming Minecraft world with a real harbour, active shore work, and room for your next idea to become part of the story.</p>
         <div class="actions">
           <a class="button-primary" href="#join">Join the community</a>
-          <a class="button-secondary" href="#world">Explore the world&nbsp; ↓</a>
+          <a class="button-secondary" href="#proof">See the latest activity&nbsp; ↓</a>
         </div>
         <div class="coordinates">06° 12′ N &nbsp;·&nbsp; 134° 35′ W &nbsp;·&nbsp; EST. 2026</div>
       </div>
@@ -314,7 +356,7 @@
       <div class="shell">
         <div class="section-head">
           <h2>A world with a tide of its own.</h2>
-          <p>Odyssey Lands is being shaped as a shared ocean frontier: six districts, five ranks, and plenty of room for your build to become part of the story.</p>
+          <p>Odyssey Lands is an early but real shared ocean frontier: a protected harbour, verified shore projects, six districts, five ranks, and room for your build to become part of the story.</p>
         </div>
         <div class="manifesto">
           <div class="manifesto-copy">Build something useful. Discover somewhere unexpected. Leave the shoreline better than you found it. <em>That is the Odyssey.</em></div>
@@ -398,7 +440,7 @@
             <span class="map-detail-meta" id="map-detail-meta">PROTECTED HEART · ACTIVE HARBOUR</span>
             <span class="map-detail-coords" id="map-detail-coords">X 560–575 · Y 61–69 · Z -496 to -481</span>
             <div class="map-detail-actions">
-              <a class="map-detail-link" id="map-detail-link" href="https://discord.com/channels/1345963951724171364/1345975824427257866">Open #coordinates-sharing →</a>
+              <a class="map-detail-link" id="map-detail-link" href="https://discord.gg/fvbDtwzPWP">Join Discord for the route →</a>
               <button class="copy-coords" id="copy-map-coords" type="button">Copy coordinates</button>
               <span class="copy-status" id="copy-status" aria-live="polite"></span>
             </div>
@@ -436,6 +478,29 @@
       </div>
     </section>
 
+    <section id="proof" class="proof">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>The tide is moving.</h2>
+          <p>These are real screenshots shared by the crew in Discord—not concept art. The world is still growing, and the next good image can come from you.</p>
+        </div>
+        <div class="proof-grid reveal">
+          <figure class="proof-card">
+            <img src="assets/odyssey-minecraft-deep-current-1.webp" alt="Minecraft cave with ore blocks, shared by the Odyssey Lands crew" loading="lazy" decoding="async">
+            <figcaption><strong>Deep Current / mining run</strong><span>Real in-game activity · shared in #screenshots</span></figcaption>
+          </figure>
+          <figure class="proof-card">
+            <img src="assets/odyssey-minecraft-deep-current-2.webp" alt="Minecraft ore blocks in a dark underground area, shared by the Odyssey Lands crew" loading="lazy" decoding="async">
+            <figcaption><strong>Under the shoreline</strong><span>Real in-game activity · shared in #screenshots</span></figcaption>
+          </figure>
+          <article class="proof-note">
+            <div><div class="eyebrow">Proof of life</div><h3>Not a finished theme park.</h3><p>Odyssey Lands is being built in public. Check the live connection, watch the Discord, and help turn the next blank shore into something worth returning to.</p></div>
+            <a class="proof-link" href="https://discord.gg/fvbDtwzPWP">Share the next screenshot →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="voyager" class="voyager">
       <div class="shell">
         <div class="section-head reveal">
@@ -455,6 +520,7 @@
             <h3 id="voyager-title">The Builder</h3>
             <p id="voyager-copy">You notice the empty shoreline and immediately imagine what belongs there. In Odyssey Lands, your details become part of someone else's favourite route.</p>
             <div class="voyager-list" id="voyager-list"><span>Collaborative projects</span><span>Useful landmarks</span><span>Room to make it yours</span></div>
+            <a class="voyager-next" id="voyager-next" href="#join">Start at the Harbour →</a>
           </article>
           <div class="route-finder" aria-labelledby="route-finder-title">
             <div class="eyebrow">A small tide check</div>
@@ -499,7 +565,7 @@
           <div class="eyebrow">Live harbour conditions</div>
           <h2>Check the tide before you sail.</h2>
           <p>The server can rest between voyages. Check its current connection here, then head to Discord to meet the crew and hear what is moving next.</p>
-          <div class="status-guide"><strong>Server sleeping?</strong><span>Aternos can stop idle worlds. Start it there, then check again—or join Discord for the latest voyage notice.</span><a href="https://discord.com/channels/1345963951724171364/1544331263727505428">Open #status →</a></div>
+          <div class="status-guide"><strong>Server sleeping?</strong><span>Aternos can stop idle worlds. Check again after it starts, or join Discord for the latest voyage notice.</span><a href="https://discord.gg/fvbDtwzPWP">Join Discord for the latest notice →</a></div>
         </div>
         <div class="status-stack">
           <div class="status-card" id="server-status" data-state="checking" aria-live="polite">
@@ -626,7 +692,7 @@
         statusCard.dataset.state = online ? 'online' : 'offline';
         statusLabel.textContent = online ? 'Server online' : 'Server offline';
         statusMain.textContent = online ? 'The harbour is open.' : 'The harbour is resting.';
-        statusDetail.textContent = online ? 'The world is ready for the next voyage.' : 'Aternos may be asleep. Check again before setting sail.';
+        statusDetail.textContent = online ? 'The world is ready for the next voyage.' : 'Aternos may be asleep. Check again after it starts, or ask the crew what is moving next.';
         statusPlayers.textContent = online && data.players ? (data.players.max ? data.players.online + ' / ' + data.players.max : String(data.players.online)) : '—';
       } catch (error) {
         statusCard.dataset.state = 'offline';
@@ -664,8 +730,8 @@
         mapCopy.textContent = data.copy;
         mapMeta.textContent = data.meta;
         mapCoords.textContent = data.coords;
-        mapLink.href = data.channelUrl;
-        mapLink.textContent = 'Open #' + data.channel + ' →';
+        mapLink.href = 'https://discord.gg/fvbDtwzPWP';
+        mapLink.textContent = data.copyable ? 'Join Discord for the route →' : 'Join Discord to help chart it →';
         copyCoords.hidden = !data.copyable;
         copyCoords.dataset.coords = data.copyable ? data.coords : '';
         copyStatus.textContent = '';
