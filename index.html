@@ -322,6 +322,89 @@
       .event { grid-template-columns: 1fr; gap: 4px; }
       section { padding: 78px 0; }
     }
+
+    /* Mobile polish pass */
+    @media (max-width: 800px) {
+      body { overflow-x: hidden; }
+      .nav { min-height: 66px; gap: 12px; }
+      .brand { gap: 8px; font-size: .68rem; letter-spacing: .09em; }
+      .mark { width: 36px; height: 36px; }
+      .nav-cta { padding: 9px 11px; font-size: .7rem; white-space: nowrap; }
+      .hero { min-height: auto; }
+      .hero-inner { padding: 62px 0 86px; }
+      .hero-mark { width: 86px; height: 86px; margin-bottom: 18px; }
+      h1 { font-size: clamp(3rem, 13vw, 4.2rem); line-height: .98; }
+      .hero-lede { margin: 22px 0 27px; font-size: 1rem; line-height: 1.55; }
+      .actions { align-items: stretch; flex-direction: column; gap: 12px; }
+      .actions .button-primary { text-align: center; }
+      .button-primary, .button-secondary { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+      .button-secondary { justify-content: flex-start; width: fit-content; }
+      .hero-signal { display: block; margin-top: 23px; padding: 11px 12px; font-size: .72rem; line-height: 1.45; }
+      .hero-signal strong, .hero-signal a { display: block; }
+      .hero-signal a { margin-top: 4px; }
+      .coordinates { bottom: 23px; font-size: .57rem; letter-spacing: .1em; }
+      section { padding: 62px 0; }
+      .section-head { gap: 17px; margin-bottom: 34px; }
+      .section-head h2 { font-size: clamp(2.15rem, 11vw, 3.25rem); }
+      .section-head p { font-size: .94rem; line-height: 1.55; }
+      .manifesto { gap: 26px; }
+      .manifesto-copy { font-size: 1.42rem; }
+      .note { font-size: .84rem; }
+      .district { min-height: 0; padding: 20px; }
+      .district h3 { margin: 20px 0 8px; font-size: 1.45rem; }
+      .district p { font-size: .84rem; }
+      .rank { padding: 16px 0; }
+      .rank strong { font-size: 1.2rem; }
+      .rank span { font-size: .76rem; }
+      .events { gap: 28px; }
+      .event-filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; margin-right: -14px; scrollbar-width: none; }
+      .event-filters::-webkit-scrollbar { display: none; }
+      .event-filter { min-height: 42px; flex: 0 0 auto; }
+      .event { padding: 19px 0; }
+      .project-status { padding: 58px 0; }
+      .project-status-head { align-items: flex-start; flex-direction: column; gap: 16px; }
+      .project-status-head p { font-size: .84rem; }
+      .project-status-card { min-height: 0; padding: 17px; }
+      .project-status-card strong { margin-top: 12px; font-size: 1.12rem; }
+      .project-status-card p { font-size: .74rem; line-height: 1.45; }
+      .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .proof-card img { aspect-ratio: 1.22 / 1; }
+      .proof-card figcaption { padding: 11px 10px 12px; }
+      .proof-card strong { font-size: .94rem; line-height: 1.12; }
+      .proof-card span { font-size: .67rem; line-height: 1.35; }
+      .proof-note { grid-column: 1 / -1; padding: 19px; }
+      .proof-note h3 { font-size: 1.65rem; }
+      .proof-note p { font-size: .84rem; }
+      .status-layout { gap: 28px; }
+      .status-copy h2 { font-size: clamp(2.25rem, 11vw, 3.25rem); }
+      .status-copy p { margin-top: 17px; font-size: .9rem; }
+      .status-guide { margin-top: 20px; padding: 14px 15px; font-size: .78rem; }
+      .status-card, .discord-card { padding: 19px; }
+      .status-card h3 { font-size: 1.7rem; }
+      .status-metrics { gap: 13px; margin-top: 18px; padding-top: 15px; }
+      .status-refresh, .copy-server { min-height: 42px; }
+      .discord-card .discord-action { margin-top: 10px; }
+      .voyager-card { min-height: 0; padding: 24px 20px; }
+      .voyager-card h3 { font-size: 2.3rem; }
+      .voyager-card p { font-size: .95rem; }
+      .voyager-tabs { margin-top: 20px; }
+      .voyager-tab { min-height: 44px; }
+      .details { margin-top: 34px; gap: 14px; font-size: .67rem; line-height: 1.35; }
+      .join h2 { font-size: clamp(2.5rem, 13vw, 4rem); }
+      .join p { margin: 19px auto 25px; font-size: .94rem; }
+      .join .button-primary { width: 100%; }
+      footer { font-size: .68rem; }
+    }
+    @media (max-width: 380px) {
+      .shell { width: min(calc(100% - 26px), var(--max)); }
+      .brand span:last-child { max-width: 122px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .nav-cta { padding-inline: 9px; font-size: .65rem; }
+      .project-status-grid { grid-template-columns: 1fr; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-card img { aspect-ratio: 1.55 / 1; }
+      .proof-note { grid-column: auto; }
+      h1 { font-size: 2.95rem; }
+    }
   </style>
 </head>
 <body>
