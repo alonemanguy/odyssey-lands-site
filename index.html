@@ -181,6 +181,48 @@
     .discord-card span { display: block; margin-top: 4px; color: var(--muted); font-size: .82rem; }
     .discord-card .discord-action { color: var(--sea-soft); white-space: nowrap; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
 
+
+    .district-map { background: #091f29; }
+    .map-layout { display: grid; grid-template-columns: 1.3fr .7fr; gap: 62px; align-items: center; }
+    .map-intro { color: var(--muted); max-width: 430px; }
+    .map-intro h2 { margin-top: 16px; color: var(--foam); font-size: clamp(2.5rem, 5vw, 4.4rem); }
+    .map-intro p { margin: 22px 0 0; }
+    .shore-map-wrap { min-width: 0; }
+    .shore-map { min-height: 460px; position: relative; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(circle at 53% 48%, rgba(101,184,176,.14), transparent 24%), radial-gradient(circle at 82% 21%, rgba(212,173,103,.08), transparent 26%), #0a2630; }
+    .shore-map::before { content: ""; position: absolute; inset: 0; opacity: .58; background-image: linear-gradient(rgba(165,216,207,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(165,216,207,.1) 1px, transparent 1px); background-size: 38px 38px; mask-image: radial-gradient(ellipse at center, black, transparent 88%); }
+    .shore-map::after { content: ""; position: absolute; width: 640px; height: 640px; left: 18%; top: -23%; border: 1px solid rgba(212,173,103,.16); border-radius: 50%; box-shadow: 0 0 0 54px rgba(165,216,207,.035), 0 0 0 108px rgba(165,216,207,.025); pointer-events: none; }
+    .map-caption { position: absolute; z-index: 2; left: 22px; top: 19px; color: var(--brass-soft); font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; }
+    .map-compass { position: absolute; z-index: 2; right: 25px; top: 22px; width: 64px; height: 64px; display: grid; place-items: center; border: 1px solid rgba(239,212,156,.48); border-radius: 50%; color: var(--brass-soft); font: .65rem var(--sans); letter-spacing: .12em; }
+    .map-compass::before, .map-compass::after { content: ""; position: absolute; background: var(--brass); }
+    .map-compass::before { width: 1px; height: 45px; }
+    .map-compass::after { width: 45px; height: 1px; }
+    .map-route { position: absolute; z-index: 1; height: 1px; transform-origin: left center; background: repeating-linear-gradient(90deg, var(--brass) 0 8px, transparent 8px 15px); opacity: .7; }
+    .map-route-a { width: 170px; left: 20%; top: 56%; transform: rotate(-25deg); }
+    .map-route-b { width: 170px; left: 42%; top: 43%; transform: rotate(20deg); }
+    .map-route-c { width: 150px; left: 57%; top: 61%; transform: rotate(-30deg); }
+    .map-route-d { width: 145px; left: 70%; top: 38%; transform: rotate(-58deg); }
+    .map-route-e { width: 100px; left: 77%; top: 24%; transform: rotate(8deg); }
+    .map-shore { position: absolute; z-index: 3; display: flex; align-items: center; gap: 11px; border: 0; padding: 0; background: transparent; color: var(--foam); text-align: left; cursor: pointer; font: inherit; }
+    .map-shore:hover, .map-shore:focus-visible { outline: none; }
+    .shore-marker { width: 16px; height: 16px; flex: 0 0 16px; border: 2px solid var(--brass-soft); border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 6px rgba(212,173,103,.1); transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+    .map-shore:hover .shore-marker, .map-shore:focus-visible .shore-marker, .map-shore.active .shore-marker { transform: scale(1.15); background: var(--brass); box-shadow: 0 0 0 8px rgba(212,173,103,.17); }
+    .shore-label { display: block; min-width: 116px; color: var(--foam); font-family: var(--serif); font-size: 1rem; line-height: 1.05; }
+    .shore-label b { display: block; margin-bottom: 3px; color: var(--brass); font: .62rem var(--sans); letter-spacing: .14em; }
+    .shore-label small { display: block; margin-top: 5px; color: var(--muted); font: .63rem var(--sans); line-height: 1.2; }
+    .shore-harbour { left: 13%; top: 58%; }
+    .shore-coast { left: 34%; top: 39%; }
+    .shore-opensea { left: 51%; top: 66%; }
+    .shore-waystation { left: 68%; top: 42%; }
+    .shore-deepcurrent { left: 55%; top: 16%; }
+    .shore-horizon { left: 78%; top: 18%; }
+    .map-detail { padding: 26px; border: 1px solid var(--line); background: rgba(7,25,35,.58); }
+    .map-detail-kicker { color: var(--brass-soft); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; }
+    .map-detail h3 { margin-top: 9px; color: var(--foam); font-size: 2rem; }
+    .map-detail p { margin: 12px 0 0; color: var(--sea-soft); font-size: .92rem; }
+    .map-detail-meta { display: block; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .73rem; letter-spacing: .08em; }
+    .map-legend { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 16px; color: var(--muted); font-size: .73rem; }
+    .map-legend span::before { content: "—  "; color: var(--brass); }
+
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
     @media (max-width: 800px) {
       .shell { width: min(calc(100% - 34px), var(--max)); }
@@ -189,7 +231,7 @@
       .hero-inner { padding: 76px 0 105px; }
       .hero-mark { width: 94px; height: 94px; margin-bottom: 21px; }
       .coordinates { left: 0; right: auto; }
-      .section-head, .manifesto, .events, .chart-layout { grid-template-columns: 1fr; gap: 24px; }
+      .section-head, .manifesto, .events, .chart-layout, .map-layout, .status-layout { grid-template-columns: 1fr; gap: 24px; }
       .chart-board { min-height: 300px; }
       .districts { grid-template-columns: repeat(2, 1fr); }
       .journey-grid { grid-template-columns: 1fr; }
@@ -303,6 +345,38 @@
             <h3 id="chart-detail-title">The Harbour</h3>
             <p id="chart-detail-copy">Arrival, orientation, trade, and the first view of the sea. Start here when you want to meet the crew and find your bearings.</p>
             <span class="chart-detail-meta" id="chart-detail-meta">DISTRICT 01 · FIRST LIGHT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="district-map" class="district-map">
+      <div class="shell">
+        <div class="map-layout reveal">
+          <div class="map-intro">
+            <div class="eyebrow">Odyssey Lands / field chart 02</div>
+            <h2>Six shores. One living map.</h2>
+            <p>Every district has a different rhythm. Tap a shore to see what kind of story is waiting there.</p>
+            <div class="map-legend"><span>Clickable districts</span><span>Routes still forming</span></div>
+          </div>
+          <div class="map-detail" id="map-detail" aria-live="polite">
+            <div class="map-detail-kicker">Selected shore</div>
+            <h3 id="map-detail-title">The Harbour</h3>
+            <p id="map-detail-copy">The welcoming centre of the community: orientation, trade, and the first view of the sea.</p>
+            <span class="map-detail-meta" id="map-detail-meta">01 · FIRST LIGHT · BEGIN HERE</span>
+          </div>
+          <div class="shore-map-wrap">
+            <div class="shore-map" aria-label="Interactive six-shore district map">
+              <div class="map-caption">ODYSSEY LANDS / NORTH CHART</div>
+              <div class="map-compass" aria-hidden="true">N</div>
+              <div class="map-route map-route-a"></div><div class="map-route map-route-b"></div><div class="map-route map-route-c"></div><div class="map-route map-route-d"></div><div class="map-route map-route-e"></div>
+              <button class="map-shore shore-harbour active" type="button" data-map-spot="harbour" aria-label="Show map details for The Harbour"><span class="shore-marker"></span><span class="shore-label"><b>01</b>The Harbour<small>First Light</small></span></button>
+              <button class="map-shore shore-coast" type="button" data-map-spot="coast" aria-label="Show map details for Tidewalker Coast"><span class="shore-marker"></span><span class="shore-label"><b>02</b>Tidewalker Coast<small>Working Waters</small></span></button>
+              <button class="map-shore shore-opensea" type="button" data-map-spot="opensea" aria-label="Show map details for The Open Sea"><span class="shore-marker"></span><span class="shore-label"><b>03</b>The Open Sea<small>Uncharted</small></span></button>
+              <button class="map-shore shore-waystation" type="button" data-map-spot="waystation" aria-label="Show map details for Western Reach"><span class="shore-marker"></span><span class="shore-label"><b>04</b>Western Reach<small>Waystations</small></span></button>
+              <button class="map-shore shore-deepcurrent" type="button" data-map-spot="deepcurrent" aria-label="Show map details for Deep Current"><span class="shore-marker"></span><span class="shore-label"><b>05</b>Deep Current<small>Hidden Depths</small></span></button>
+              <button class="map-shore shore-horizon" type="button" data-map-spot="horizon" aria-label="Show map details for The Horizon"><span class="shore-marker"></span><span class="shore-label"><b>06</b>The Horizon<small>To Be Charted</small></span></button>
+            </div>
           </div>
         </div>
       </div>
@@ -509,6 +583,28 @@
     }
     document.getElementById('refresh-status').addEventListener('click', loadServerStatus);
     loadServerStatus();
+
+
+    const mapData = {
+      harbour: { title: 'The Harbour', copy: 'The welcoming centre of the community: orientation, trade, and the first view of the sea.', meta: '01 · FIRST LIGHT · BEGIN HERE' },
+      coast: { title: 'Tidewalker Coast', copy: 'A working shoreline for coastal builds, gathering places, and the slower kind of exploration that rewards attention.', meta: '02 · WORKING WATERS · BUILD AND GATHER' },
+      opensea: { title: 'The Open Sea', copy: 'Room for bold expeditions, ambitious projects, and stories that have not been written yet.', meta: '03 · UNCHARTED · TAKE THE LONGER ROUTE' },
+      waystation: { title: 'Western Reach', copy: 'Small landmarks and useful shelters for travellers moving beyond the familiar.', meta: '04 · WAYSTATIONS · REST AND CONTINUE' },
+      deepcurrent: { title: 'Deep Current', copy: 'A place for mysteries, challenges, and the kind of discoveries worth remembering.', meta: '05 · HIDDEN DEPTHS · LOOK CLOSER' },
+      horizon: { title: 'The Horizon', copy: 'The next chapter belongs to the community. Bring an idea and help define it.', meta: '06 · TO BE CHARTED · BRING AN IDEA' }
+    };
+    const mapTitle = document.getElementById('map-detail-title');
+    const mapCopy = document.getElementById('map-detail-copy');
+    const mapMeta = document.getElementById('map-detail-meta');
+    document.querySelectorAll('.map-shore').forEach((shore) => {
+      shore.addEventListener('click', () => {
+        const data = mapData[shore.dataset.mapSpot];
+        document.querySelectorAll('.map-shore').forEach((item) => item.classList.toggle('active', item === shore));
+        mapTitle.textContent = data.title;
+        mapCopy.textContent = data.copy;
+        mapMeta.textContent = data.meta;
+      });
+    });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
