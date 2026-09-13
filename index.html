@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#071923" />
   <meta name="description" content="Odyssey Lands — a welcoming ocean-themed Minecraft community built around exploration, creativity, and adventure." />
+  <meta property="og:title" content="Odyssey Lands — Sail Beyond the Horizon" />
+  <meta property="og:description" content="Build, explore, and belong in an ocean-themed Minecraft community." />
+  <meta property="og:image" content="https://alonemanguy.github.io/odyssey-lands-site/assets/odyssey-banner.png" />
   <title>Odyssey Lands — Sail Beyond the Horizon</title>
   <style>
     :root {
@@ -42,12 +45,13 @@
     }
     .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: flex; align-items: center; gap: 12px; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; font-weight: 700; }
-    .mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--brass); color: var(--brass-soft); border-radius: 50%; font-family: var(--serif); font-size: 1.2rem; }
+    .mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; }
+    .mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
     nav { display: flex; align-items: center; gap: 25px; color: var(--muted); font-size: .88rem; }
     nav a:hover { color: var(--foam); }
     .nav-cta, .button-primary { background: var(--brass); color: #14252a; font-weight: 800; border-radius: 3px; padding: 11px 17px; }
     .nav-cta:hover, .button-primary:hover { background: var(--brass-soft); }
-    .hero { position: relative; overflow: hidden; min-height: 690px; display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+    .hero { position: relative; overflow: hidden; min-height: 690px; display: flex; align-items: center; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, rgba(7,25,35,.98) 0%, rgba(7,25,35,.88) 37%, rgba(7,25,35,.48) 72%, rgba(7,25,35,.32) 100%), url('assets/odyssey-banner.png') center / cover no-repeat; }
     .hero::before {
       content: ""; position: absolute; inset: 0; opacity: .18; pointer-events: none;
       background-image: linear-gradient(rgba(165,216,207,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(165,216,207,.18) 1px, transparent 1px);
@@ -162,7 +166,7 @@
   <div class="topline"></div>
   <header>
     <div class="shell nav">
-      <a class="brand" href="#top" aria-label="Odyssey Lands home"><span class="mark">O</span><span>Odyssey Lands</span></a>
+      <a class="brand" href="#top" aria-label="Odyssey Lands home"><span class="mark"><img src="assets/odyssey-emblem.png" alt="Odyssey Lands emblem"></span><span>Odyssey Lands</span></a>
       <nav aria-label="Main navigation">
         <a href="#world">The world</a>
         <a href="#voyager">Your path</a>
