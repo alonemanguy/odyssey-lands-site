@@ -236,6 +236,25 @@
     .copy-coords[hidden] { display: none; }
     .copy-status { color: var(--brass-soft); font-size: .73rem; }
 
+
+    .status-guide { margin-top: 25px; padding: 16px 18px; border-left: 2px solid var(--brass); background: rgba(7,25,35,.38); color: var(--muted); font-size: .82rem; }
+    .status-guide strong { display: block; margin-bottom: 4px; color: var(--brass-soft); font-family: var(--serif); font-size: 1.05rem; font-weight: 400; }
+    .status-guide a { display: inline-block; margin-top: 8px; color: var(--sea-soft); border-bottom: 1px solid rgba(165,216,207,.45); }
+    .status-guide a:hover { color: var(--foam); border-color: var(--foam); }
+    .status-address-action { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+    .copy-server { cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--sea-soft); padding: 8px 10px; border-radius: 2px; font: inherit; font-size: .73rem; letter-spacing: .06em; text-transform: uppercase; }
+    .copy-server:hover, .copy-server:focus-visible { border-color: var(--sea-soft); color: var(--ink); background: var(--sea-soft); outline: none; }
+    .server-copy-status { color: var(--brass-soft); font-size: .73rem; }
+    .project-status { padding: 72px 0; background: #071923; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .project-status-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 28px; }
+    .project-status-head h2 { margin-top: 12px; color: var(--foam); font-size: clamp(2rem, 4vw, 3.4rem); }
+    .project-status-head p { max-width: 390px; margin: 0; color: var(--muted); font-size: .88rem; }
+    .project-status-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .project-status-card { min-height: 155px; padding: 22px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .project-status-card strong { display: block; margin-top: 17px; color: var(--foam); font-family: var(--serif); font-size: 1.35rem; font-weight: 400; }
+    .project-status-card p { margin: 7px 0 0; color: var(--muted); font-size: .8rem; }
+    .project-state { color: var(--brass-soft); font-size: .65rem; letter-spacing: .13em; text-transform: uppercase; }
+
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
     @media (max-width: 800px) {
       .shell { width: min(calc(100% - 34px), var(--max)); }
@@ -401,6 +420,22 @@
       </div>
     </section>
 
+
+    <section id="project-status" class="project-status">
+      <div class="shell">
+        <div class="project-status-head">
+          <div><div class="eyebrow">The chart at a glance</div><h2>What is already real.</h2></div>
+          <p>Verified progress, protected terrain, and future waters—kept separate so the map stays honest.</p>
+        </div>
+        <div class="project-status-grid">
+          <article class="project-status-card"><span class="project-state">Protected &amp; active</span><strong>The Harbour</strong><p>Spawn heart and original harbour preserved.</p></article>
+          <article class="project-status-card"><span class="project-state">Built · 195 blocks</span><strong>Tidewalker Coast</strong><p>Coast blueprint and West Pier Extension verified.</p></article>
+          <article class="project-status-card"><span class="project-state">Built · 97 blocks</span><strong>Western Reach</strong><p>Westward Waystation placed and archive-verified.</p></article>
+          <article class="project-status-card"><span class="project-state">Future waters</span><strong>Three shores ahead</strong><p>The Open Sea, Deep Current, and The Horizon remain open for planning.</p></article>
+        </div>
+      </div>
+    </section>
+
     <section id="voyager" class="voyager">
       <div class="shell">
         <div class="section-head reveal">
@@ -464,6 +499,7 @@
           <div class="eyebrow">Live harbour conditions</div>
           <h2>Check the tide before you sail.</h2>
           <p>The server can rest between voyages. Check its current connection here, then head to Discord to meet the crew and hear what is moving next.</p>
+          <div class="status-guide"><strong>Server sleeping?</strong><span>Aternos can stop idle worlds. Start it there, then check again—or join Discord for the latest voyage notice.</span><a href="https://discord.com/channels/1345963951724171364/1544331263727505428">Open #status →</a></div>
         </div>
         <div class="status-stack">
           <div class="status-card" id="server-status" data-state="checking" aria-live="polite">
@@ -476,6 +512,7 @@
               <span><small>Checked</small><span id="status-time">—</span></span>
             </div>
             <button class="status-refresh" id="refresh-status" type="button">Check again</button>
+            <div class="status-address-action"><button class="copy-server" id="copy-server-address" type="button">Copy server address</button><span class="server-copy-status" id="server-copy-status" aria-live="polite"></span></div>
           </div>
           <a class="discord-card" href="https://discord.gg/fvbDtwzPWP">
             <div><strong>Discord harbour</strong><span>Meet the crew, share a build, and catch the next expedition.</span></div>
@@ -642,6 +679,16 @@
         copyStatus.textContent = 'Coordinates copied.';
       } catch (error) {
         copyStatus.textContent = 'Copy unavailable — select the coordinates above.';
+      }
+    });
+
+    const serverAddress = 'odysseyland.aternos.me:46767';
+    document.getElementById('copy-server-address').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(serverAddress);
+        document.getElementById('server-copy-status').textContent = 'Server address copied.';
+      } catch (error) {
+        document.getElementById('server-copy-status').textContent = 'Copy unavailable — select the address above.';
       }
     });
 
