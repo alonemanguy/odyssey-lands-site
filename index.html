@@ -157,6 +157,30 @@
     .voyager-card p { max-width: 590px; color: var(--sea-soft); font-size: 1.05rem; }
     .voyager-list { display: flex; flex-wrap: wrap; gap: 9px 24px; margin-top: 25px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .83rem; }
     .voyager-list span::before { content: "—  "; color: var(--brass); }
+
+    .status { background: #0b2631; }
+    .status-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: center; }
+    .status-copy h2 { margin-top: 16px; color: var(--foam); font-size: clamp(2.5rem, 5vw, 4.4rem); }
+    .status-copy p { max-width: 470px; margin: 22px 0 0; color: var(--muted); }
+    .status-stack { display: grid; gap: 14px; }
+    .status-card, .discord-card { border: 1px solid var(--line); background: rgba(7,25,35,.58); padding: 26px; }
+    .status-card[data-state="online"] { border-color: rgba(101,184,176,.65); }
+    .status-card[data-state="offline"] { border-color: rgba(212,173,103,.48); }
+    .status-card-top { display: flex; align-items: center; gap: 9px; color: var(--sea-soft); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 5px rgba(212,173,103,.12); }
+    .status-card[data-state="online"] .status-dot { background: var(--sea); box-shadow: 0 0 0 5px rgba(101,184,176,.13); }
+    .status-card h3 { margin-top: 16px; color: var(--foam); font-size: 2rem; }
+    .status-card > p { margin: 7px 0 0; color: var(--muted); font-size: .9rem; }
+    .status-metrics { display: grid; grid-template-columns: 1.4fr .7fr .7fr; gap: 18px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .status-metrics small { display: block; margin-bottom: 4px; color: var(--brass-soft); font-size: .65rem; letter-spacing: .13em; text-transform: uppercase; }
+    .status-metrics span, .status-metrics code { color: var(--sea-soft); font: .8rem var(--sans); word-break: break-word; }
+    .status-refresh { margin-top: 20px; cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--sea-soft); padding: 9px 12px; border-radius: 2px; font: inherit; font-size: .78rem; }
+    .status-refresh:hover, .status-refresh:focus-visible { border-color: var(--sea-soft); color: var(--ink); background: var(--sea-soft); outline: none; }
+    .discord-card { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .discord-card strong { display: block; color: var(--brass-soft); font-family: var(--serif); font-size: 1.35rem; font-weight: 400; }
+    .discord-card span { display: block; margin-top: 4px; color: var(--muted); font-size: .82rem; }
+    .discord-card .discord-action { color: var(--sea-soft); white-space: nowrap; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
     @media (max-width: 800px) {
       .shell { width: min(calc(100% - 34px), var(--max)); }
@@ -191,6 +215,7 @@
         <a href="#voyager">Your path</a>
         <a href="#journey">Ranks</a>
         <a href="#events">Events</a>
+        <a href="#status">Status</a>
         <a class="nav-cta" href="#join">Join the voyage</a>
       </nav>
     </div>
@@ -339,6 +364,34 @@
       </div>
     </section>
 
+
+    <section id="status" class="status">
+      <div class="shell status-layout">
+        <div class="status-copy">
+          <div class="eyebrow">Live harbour conditions</div>
+          <h2>Check the tide before you sail.</h2>
+          <p>The server can rest between voyages. Check its current connection here, then head to Discord to meet the crew and hear what is moving next.</p>
+        </div>
+        <div class="status-stack">
+          <div class="status-card" id="server-status" data-state="checking" aria-live="polite">
+            <div class="status-card-top"><span class="status-dot" id="status-dot"></span><span id="status-label">Checking the server...</span></div>
+            <h3 id="status-main">Reaching the harbour</h3>
+            <p id="status-detail">Checking the current Minecraft connection.</p>
+            <div class="status-metrics">
+              <span><small>Address</small><code>odysseyland.aternos.me:46767</code></span>
+              <span><small>Players</small><span id="status-players">—</span></span>
+              <span><small>Checked</small><span id="status-time">—</span></span>
+            </div>
+            <button class="status-refresh" id="refresh-status" type="button">Check again</button>
+          </div>
+          <a class="discord-card" href="https://discord.gg/fvbDtwzPWP">
+            <div><strong>Discord harbour</strong><span>Meet the crew, share a build, and catch the next expedition.</span></div>
+            <span class="discord-action">Enter →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="join" class="join">
       <div class="shell join-inner">
         <div class="eyebrow">Your next adventure starts here</div>
@@ -420,6 +473,43 @@
         document.querySelectorAll('.event').forEach((event) => { event.hidden = value !== 'all' && event.dataset.kind !== value; });
       });
     });
+
+    const statusCard = document.getElementById('server-status');
+    const statusLabel = document.getElementById('status-label');
+    const statusMain = document.getElementById('status-main');
+    const statusDetail = document.getElementById('status-detail');
+    const statusPlayers = document.getElementById('status-players');
+    const statusTime = document.getElementById('status-time');
+    const statusEndpoint = 'https://api.mcsrvstat.us/3/odysseyland.aternos.me:46767';
+    const checkTime = () => new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(new Date());
+    async function loadServerStatus() {
+      statusCard.dataset.state = 'checking';
+      statusLabel.textContent = 'Checking the server...';
+      statusMain.textContent = 'Reaching the harbour';
+      statusDetail.textContent = 'Checking the current Minecraft connection.';
+      statusPlayers.textContent = '—';
+      try {
+        const response = await fetch(statusEndpoint, { cache: 'no-store' });
+        if (!response.ok) throw new Error('Status request failed');
+        const data = await response.json();
+        const online = Boolean(data.online);
+        statusCard.dataset.state = online ? 'online' : 'offline';
+        statusLabel.textContent = online ? 'Server online' : 'Server offline';
+        statusMain.textContent = online ? 'The harbour is open.' : 'The harbour is resting.';
+        statusDetail.textContent = online ? 'The world is ready for the next voyage.' : 'Aternos may be asleep. Check again before setting sail.';
+        statusPlayers.textContent = online && data.players ? (data.players.max ? data.players.online + ' / ' + data.players.max : String(data.players.online)) : '—';
+      } catch (error) {
+        statusCard.dataset.state = 'offline';
+        statusLabel.textContent = 'Status unavailable';
+        statusMain.textContent = 'The tide is unclear.';
+        statusDetail.textContent = 'The status service could not be reached. Try again in a moment.';
+        statusPlayers.textContent = '—';
+      }
+      statusTime.textContent = checkTime();
+    }
+    document.getElementById('refresh-status').addEventListener('click', loadServerStatus);
+    loadServerStatus();
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: .12 });
