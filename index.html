@@ -187,7 +187,7 @@
     .map-intro { color: var(--muted); max-width: 430px; }
     .map-intro h2 { margin-top: 16px; color: var(--foam); font-size: clamp(2.5rem, 5vw, 4.4rem); }
     .map-intro p { margin: 22px 0 0; }
-    .shore-map-wrap { min-width: 0; }
+    .shore-map-wrap { min-width: 0; grid-column: 1 / -1; }
     .shore-map { min-height: 460px; position: relative; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(circle at 53% 48%, rgba(101,184,176,.14), transparent 24%), radial-gradient(circle at 82% 21%, rgba(212,173,103,.08), transparent 26%), #0a2630; }
     .shore-map::before { content: ""; position: absolute; inset: 0; opacity: .58; background-image: linear-gradient(rgba(165,216,207,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(165,216,207,.1) 1px, transparent 1px); background-size: 38px 38px; mask-image: radial-gradient(ellipse at center, black, transparent 88%); }
     .shore-map::after { content: ""; position: absolute; width: 640px; height: 640px; left: 18%; top: -23%; border: 1px solid rgba(212,173,103,.16); border-radius: 50%; box-shadow: 0 0 0 54px rgba(165,216,207,.035), 0 0 0 108px rgba(165,216,207,.025); pointer-events: none; }
