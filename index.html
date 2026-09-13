@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#071923" />
+  <link rel="icon" type="image/png" href="assets/odyssey-emblem.png" />
+  <link rel="apple-touch-icon" href="assets/odyssey-emblem.png" />
   <meta name="description" content="Odyssey Lands — a welcoming ocean-themed Minecraft community built around exploration, creativity, and adventure." />
   <meta property="og:title" content="Odyssey Lands — Sail Beyond the Horizon" />
   <meta property="og:description" content="Build, explore, and belong in an ocean-themed Minecraft community." />
@@ -62,6 +64,7 @@
       border: 1px solid rgba(165,216,207,.22); border-radius: 50%; box-shadow: 0 0 0 55px rgba(165,216,207,.045), 0 0 0 110px rgba(165,216,207,.035), 0 0 0 165px rgba(165,216,207,.025);
     }
     .hero-inner { position: relative; z-index: 1; width: min(100%, 760px); padding: 86px 0 115px; }
+    .hero-mark { width: 118px; height: 118px; object-fit: cover; display: block; border: 1px solid rgba(239,212,156,.6); border-radius: 50%; box-shadow: 0 0 0 8px rgba(212,173,103,.08), 0 18px 50px rgba(0,0,0,.28); margin-bottom: 25px; }
     .eyebrow { color: var(--brass-soft); letter-spacing: .18em; text-transform: uppercase; font-size: .72rem; font-weight: 800; }
     h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; line-height: 1.05; }
     h1 { max-width: 760px; margin-top: 18px; color: var(--foam); font-size: clamp(3.4rem, 8vw, 7rem); letter-spacing: -.055em; }
@@ -145,6 +148,7 @@
       nav a:not(.nav-cta) { display: none; }
       .hero { min-height: 610px; }
       .hero-inner { padding: 76px 0 105px; }
+      .hero-mark { width: 94px; height: 94px; margin-bottom: 21px; }
       .coordinates { left: 0; right: auto; }
       .section-head, .manifesto, .events, .chart-layout { grid-template-columns: 1fr; gap: 24px; }
       .chart-board { min-height: 300px; }
@@ -180,6 +184,7 @@
   <main id="top">
     <section class="hero">
       <div class="shell hero-inner">
+        <img class="hero-mark" src="assets/odyssey-emblem.png" alt="Odyssey Lands compass emblem with the name Odyssey Lands">
         <div class="eyebrow">A Minecraft community on the open sea</div>
         <h1>Sail beyond the horizon.</h1>
         <p class="hero-lede">Odyssey Lands is a welcoming world of builders, explorers, and storytellers—where every harbour has a history and every player can chart their own course.</p>
