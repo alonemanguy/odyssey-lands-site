@@ -223,6 +223,11 @@
     .map-legend { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 16px; color: var(--muted); font-size: .73rem; }
     .map-legend span::before { content: "—  "; color: var(--brass); }
 
+
+    .map-detail-coords { display: block; margin-top: 9px; color: var(--sea-soft); font: .78rem var(--sans); letter-spacing: .04em; }
+    .map-detail-link { display: inline-block; margin-top: 20px; color: var(--brass-soft); border-bottom: 1px solid rgba(239,212,156,.5); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+    .map-detail-link:hover { color: var(--foam); border-color: var(--foam); }
+
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
     @media (max-width: 800px) {
       .shell { width: min(calc(100% - 34px), var(--max)); }
@@ -363,7 +368,9 @@
             <div class="map-detail-kicker">Selected shore</div>
             <h3 id="map-detail-title">The Harbour</h3>
             <p id="map-detail-copy">The welcoming centre of the community: orientation, trade, and the first view of the sea.</p>
-            <span class="map-detail-meta" id="map-detail-meta">01 · FIRST LIGHT · BEGIN HERE</span>
+            <span class="map-detail-meta" id="map-detail-meta">PROTECTED HEART · ACTIVE HARBOUR</span>
+            <span class="map-detail-coords" id="map-detail-coords">X 560–575 · Y 61–69 · Z -496 to -481</span>
+            <a class="map-detail-link" href="https://discord.gg/fvbDtwzPWP">Ask in the Discord harbour →</a>
           </div>
           <div class="shore-map-wrap">
             <div class="shore-map" aria-label="Interactive six-shore district map">
@@ -586,16 +593,17 @@
 
 
     const mapData = {
-      harbour: { title: 'The Harbour', copy: 'The welcoming centre of the community: orientation, trade, and the first view of the sea.', meta: '01 · FIRST LIGHT · BEGIN HERE' },
-      coast: { title: 'Tidewalker Coast', copy: 'A working shoreline for coastal builds, gathering places, and the slower kind of exploration that rewards attention.', meta: '02 · WORKING WATERS · BUILD AND GATHER' },
-      opensea: { title: 'The Open Sea', copy: 'Room for bold expeditions, ambitious projects, and stories that have not been written yet.', meta: '03 · UNCHARTED · TAKE THE LONGER ROUTE' },
-      waystation: { title: 'Western Reach', copy: 'Small landmarks and useful shelters for travellers moving beyond the familiar.', meta: '04 · WAYSTATIONS · REST AND CONTINUE' },
-      deepcurrent: { title: 'Deep Current', copy: 'A place for mysteries, challenges, and the kind of discoveries worth remembering.', meta: '05 · HIDDEN DEPTHS · LOOK CLOSER' },
-      horizon: { title: 'The Horizon', copy: 'The next chapter belongs to the community. Bring an idea and help define it.', meta: '06 · TO BE CHARTED · BRING AN IDEA' }
+      harbour: { title: 'The Harbour', copy: 'The welcoming centre of the community: orientation, trade, and the first view of the sea.', meta: 'PROTECTED HEART · ACTIVE HARBOUR', coords: 'X 560–575 · Y 61–69 · Z -496 to -481' },
+      coast: { title: 'Tidewalker Coast', copy: 'The active working shoreline: the Tidewalker Coast blueprint and West Pier Extension are placed and archive-verified.', meta: 'PLACED · ARCHIVE-VERIFIED · 195 BLOCKS', coords: 'X 527–540 · Y 63–67 · Z -456 to -448' },
+      opensea: { title: 'The Open Sea', copy: 'A voyage destination for bold expeditions and stories not yet written. No permanent build coordinate has been assigned.', meta: 'VOYAGE DESTINATION · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition' },
+      waystation: { title: 'Western Reach', copy: 'A completed waystation beyond the familiar, built as a useful rest for travellers moving west.', meta: 'PLACED · ARCHIVE-VERIFIED · 97 BLOCKS', coords: 'X 512–519 · Y 63–65 · Z -456 to -448' },
+      deepcurrent: { title: 'Deep Current', copy: 'A future adventure area for mysteries and challenges. It is intentionally not assigned a permanent build coordinate yet.', meta: 'ADVENTURE AREA · NOT YET ASSIGNED', coords: 'Coordinates pending a future expedition' },
+      horizon: { title: 'The Horizon', copy: 'The next chapter belongs to the community. Bring a build, an idea, or a route worth charting.', meta: 'COMMUNITY-PLANNED · NOT YET ASSIGNED', coords: 'Coordinates pending a future plan' }
     };
     const mapTitle = document.getElementById('map-detail-title');
     const mapCopy = document.getElementById('map-detail-copy');
     const mapMeta = document.getElementById('map-detail-meta');
+    const mapCoords = document.getElementById('map-detail-coords');
     document.querySelectorAll('.map-shore').forEach((shore) => {
       shore.addEventListener('click', () => {
         const data = mapData[shore.dataset.mapSpot];
@@ -603,6 +611,7 @@
         mapTitle.textContent = data.title;
         mapCopy.textContent = data.copy;
         mapMeta.textContent = data.meta;
+        mapCoords.textContent = data.coords;
       });
     });
 
