@@ -144,9 +144,11 @@
     .status-card, .discord-card { border: 1px solid var(--line); background: rgba(7,25,35,.58); padding: 26px; }
     .status-card[data-state="online"] { border-color: rgba(101,184,176,.65); }
     .status-card[data-state="offline"] { border-color: rgba(212,173,103,.48); }
+    .status-card[data-state="unknown"] { border-color: rgba(165,216,207,.34); }
     .status-card-top { display: flex; align-items: center; gap: 9px; color: var(--sea-soft); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
     .status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 5px rgba(212,173,103,.12); }
     .status-card[data-state="online"] .status-dot { background: var(--sea); box-shadow: 0 0 0 5px rgba(101,184,176,.13); }
+    .status-card[data-state="unknown"] .status-dot { background: var(--muted); box-shadow: 0 0 0 5px rgba(158,184,184,.1); }
     .status-card h3 { margin-top: 16px; color: var(--foam); font-size: 2rem; }
     .status-card > p { margin: 7px 0 0; color: var(--muted); font-size: .9rem; }
     .status-metrics { display: grid; grid-template-columns: 1.4fr .7fr .7fr; gap: 18px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
@@ -587,6 +589,12 @@
     const statusTime = document.getElementById('status-time');
     const statusEndpoint = 'https://api.mcsrvstat.us/3/odysseyland.aternos.me:46767';
     const checkTime = () => new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(new Date());
+    const setState = (state, label, main, detail) => {
+      statusCard.dataset.state = state;
+      statusLabel.textContent = label;
+      statusMain.textContent = main;
+      statusDetail.textContent = detail;
+    };
     async function loadServerStatus() {
       statusCard.dataset.state = 'checking';
       statusLabel.textContent = 'Checking the server...';
@@ -597,18 +605,16 @@
         const response = await fetch(statusEndpoint, { cache: 'no-store' });
         if (!response.ok) throw new Error('Status request failed');
         const data = await response.json();
-        const online = Boolean(data.online);
-        statusCard.dataset.state = online ? 'online' : 'offline';
-        statusLabel.textContent = online ? 'Server online' : 'Server offline';
-        statusMain.textContent = online ? 'The harbour is open.' : 'The harbour is resting.';
-        statusDetail.textContent = online ? 'The world is ready for the next voyage.' : 'Aternos may be asleep. Check again after it starts, or ask the crew what is moving next.';
-        statusPlayers.textContent = online && data.players ? (data.players.max ? data.players.online + ' / ' + data.players.max : String(data.players.online)) : '—';
+        if (data.online) {
+          setState('online', 'Server online', 'The harbour is open.', 'The world is ready for the next voyage.');
+          statusPlayers.textContent = data.players && data.players.max ? data.players.online + ' / ' + data.players.max : '—';
+        } else if ((data.debug || {}).ping === true) {
+          setState('offline', 'Server offline', 'The harbour is resting.', 'Aternos may be asleep. Check again after it starts, or ask the crew what is moving next.');
+        } else {
+          setState('unknown', 'Status unverified', 'The tide is unclear.', 'Aternos blocks outside status checks, so this panel cannot confirm the harbour either way. Discord carries the live notice.');
+        }
       } catch (error) {
-        statusCard.dataset.state = 'offline';
-        statusLabel.textContent = 'Status unavailable';
-        statusMain.textContent = 'The tide is unclear.';
-        statusDetail.textContent = 'The status service could not be reached. Try again in a moment.';
-        statusPlayers.textContent = '—';
+        setState('unknown', 'Status unverified', 'The tide is unclear.', 'The status service could not be reached. Try again in a moment, or check Discord for the live notice.');
       }
       statusTime.textContent = checkTime();
     }
