@@ -161,6 +161,21 @@
     .discord-card span { display: block; margin-top: 4px; color: var(--muted); font-size: .82rem; }
     .discord-card .discord-action { color: var(--sea-soft); white-space: nowrap; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
 
+    .build-card { border: 1px solid var(--line); background: rgba(7,25,35,.58); padding: 26px; }
+    .build-card-top { display: flex; align-items: center; gap: 9px; color: var(--sea-soft); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+    .build-card h3 { margin-top: 16px; color: var(--foam); font-size: 1.6rem; }
+    .build-card > p { margin: 7px 0 0; color: var(--muted); font-size: .9rem; }
+    .build-counts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .build-counts div { min-width: 78px; }
+    .build-counts dt { color: var(--muted); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; }
+    .build-counts dd { margin: 3px 0 0; color: var(--sea-soft); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+    .build-where { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .build-where h4 { margin: 0 0 10px; color: var(--brass-soft); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 400; }
+    .build-where ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: .84rem; }
+    .build-where li { margin-bottom: 5px; }
+    .build-where code { color: var(--sea-soft); font-size: .82rem; }
+    .build-where p { margin: 12px 0 0; color: var(--muted); font-size: .8rem; }
+
     .status-guide { margin-top: 25px; padding: 16px 18px; border-left: 2px solid var(--brass); background: rgba(7,25,35,.38); color: var(--muted); font-size: .82rem; }
     .status-guide strong { display: block; margin-bottom: 4px; color: var(--brass-soft); font-family: var(--serif); font-size: 1.05rem; font-weight: 400; }
     .status-guide a { display: inline-block; margin-top: 8px; color: var(--sea-soft); border-bottom: 1px solid rgba(165,216,207,.45); }
@@ -513,6 +528,30 @@
             <div><strong>Discord harbour</strong><span>Meet the crew, share a build, and catch the next expedition.</span></div>
             <span class="discord-action">Enter →</span>
           </a>
+          <div class="build-card">
+            <div class="build-card-top"><span class="status-dot" style="background: var(--sea); box-shadow: 0 0 0 5px rgba(101,184,176,.13);"></span> Chapter I &mdash; standing in the world</div>
+            <h3>Twelve landmarks surveyed</h3>
+            <p>Every build below was generated from a scanned terrain profile, placed block by block, and then read back out of the world to confirm it landed where it was designed to sit. The pass ended with a footprint audit: the placement check that was supposed to keep new sites off the old ones was silently passing every pair, so all seven were re-checked against the standing mills, wells and houses, and nothing needed repair.</p>
+            <dl class="build-counts">
+              <div><dt>Standing</dt><dd>12</dd></div>
+              <div><dt>New this pass</dt><dd>7</dd></div>
+              <div><dt>Blocks placed</dt><dd>28.5k</dd></div>
+              <div><dt>Points verified</dt><dd>143</dd></div>
+            </dl>
+            <div class="build-where">
+              <h4>Where to look</h4>
+              <ol>
+                <li>Drowned Ruins &mdash; <code>620, -390</code></li>
+                <li>The Bell Beneath the Tide &mdash; <code>630, -360</code></li>
+                <li>Harbour of First Light &mdash; <code>684, -231</code></li>
+                <li>Tideglass Compass &mdash; <code>546, -270</code></li>
+                <li>Coral Crown &mdash; <code>462, -348</code></li>
+                <li>Abyssal Star Chart &mdash; <code>678, -288</code></li>
+                <li>Reach Waystation &mdash; <code>566, -322</code></li>
+              </ol>
+              <p>In game, <code>/sites</code> lists all seven with full coordinates, <code>/districts</code> maps them to the six districts, and <code>/relics</code> marks where the three relics are buried.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
