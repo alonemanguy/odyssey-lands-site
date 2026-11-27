@@ -418,11 +418,11 @@
           <p>Verified progress, protected terrain, and future waters—kept separate so the map stays honest.</p>
         </div>
         <div class="project-status-grid">
-          <article class="project-status-card"><span class="project-state">Protected &amp; active</span><strong>The Harbour</strong><p>Spawn heart and original harbour preserved.</p></article>
+          <article class="project-status-card"><span class="project-state">Protected &amp; active</span><strong>The Landing</strong><p>Spawn heart and original landing preserved. The Harbour of First Light is 250 blocks south-east.</p></article>
           <article class="project-status-card"><span class="project-state">Built · 252 blocks</span><strong>Waystation Well</strong><p>Deep-water well on the Western Reach, placed and archive-verified.</p></article>
-          <article class="project-status-card"><span class="project-state">Anchored · 808 blocks</span><strong>Pirate Ship</strong><p>Sturdy schooner moored in the bay, viewable from the harbour.</p></article>
+          <article class="project-status-card"><span class="project-state">Anchored · X 440, Z -580</span><strong>The Longwake</strong><p>The fleet's schooner, moored in the roads off the Open Sea.</p></article>
           <article class="project-status-card"><span class="project-state">Built · five shores standing</span><strong>Harbour &amp; Tidewalker</strong><p>Lighthouse beacon, waystation house, tavern, rivermill, and the exchange are standing and verified in the world.</p></article>
-          <article class="project-status-card"><span class="project-state">Live · the map writes itself</span><strong>The Expedition Ledger</strong><p>Every landmark a player charts is written into a server-wide record with their name against it. The relics can be found and carried home, the tide turns and the bell can only be rung at low water, and eleven places say something when you stand on them.</p></article>
+          <article class="project-status-card"><span class="project-state">Live · the map writes itself</span><strong>The Expedition Ledger</strong><p>Every landmark a player charts is written into a server-wide record with their name against it. The relics can be found and carried home, the tide turns and the bell can only be rung at low water, and seventeen places say something when you stand on them.</p></article>
           <article class="project-status-card"><span class="project-state">Live · first night</span><strong>What a new arrival gets</strong><p>Landed on the harbour path with a compass, a boat, bread, four lanterns and a book. A plot of their own with <code>/claim</code>, the Exchange at <code>/market</code>, and ranks that move as they chart the coast.</p></article>
         </div>
       </div>
@@ -466,7 +466,7 @@
             <h3 id="voyager-title">The Builder</h3>
             <p id="voyager-copy">You notice the empty shoreline and immediately imagine what belongs there. In Odyssey Lands, your details become part of someone else's favourite route.</p>
             <div class="voyager-list" id="voyager-list"><span>Collaborative projects</span><span>Useful landmarks</span><span>Room to make it yours</span></div>
-            <a class="voyager-next" id="voyager-next" href="#join">Start at the Harbour →</a>
+            <a class="voyager-next" id="voyager-next" href="#join">Start at the Landing →</a>
           </article>
           <div class="route-finder" aria-labelledby="route-finder-title">
             <div class="eyebrow">A small tide check</div>
@@ -519,7 +519,7 @@
             <h3 id="status-main">Reaching the harbour</h3>
             <p id="status-detail">Checking the current Minecraft connection.</p>
             <div class="status-metrics">
-              <span><small>Address</small><code>odysseyland.aternos.me:46767</code></span>
+              <span><small>Java address</small><code>odysseyland.aternos.me:56870</code></span>
               <span><small>Players</small><span id="status-players">—</span></span>
               <span><small>Checked</small><span id="status-time">—</span></span>
             </div>
@@ -589,7 +589,7 @@
         <h2>Ready to cast off?</h2>
         <p>Come meet the crew, see what is being built, and find a corner of the world that feels like yours.</p>
         <a class="button-primary" href="https://discord.gg/fvbDtwzPWP">Enter the Discord harbour</a>
-        <div class="details"><span>Minecraft: odysseyland.aternos.me:46767</span><span>Friendly community</span><span>Build • Explore • Belong</span></div>
+        <div class="details"><span>Java: odysseyland.aternos.me:56870</span><span>Bedrock: same address, port 19132</span><span>Build • Explore • Belong</span></div>
       </div>
     </section>
   </main>
@@ -653,7 +653,7 @@
     const statusDetail = document.getElementById('status-detail');
     const statusPlayers = document.getElementById('status-players');
     const statusTime = document.getElementById('status-time');
-    const statusEndpoint = 'https://api.mcsrvstat.us/3/odysseyland.aternos.me:46767';
+    const statusEndpoint = 'https://api.mcsrvstat.us/3/odysseyland.aternos.me:56870';
     const checkTime = () => new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(new Date());
     const setState = (state, label, main, detail) => {
       statusCard.dataset.state = state;
@@ -688,7 +688,7 @@
     loadServerStatus();
 
 
-    const serverAddress = 'odysseyland.aternos.me:46767';
+    const serverAddress = 'odysseyland.aternos.me:56870';
     document.getElementById('copy-server-address').addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(serverAddress);
