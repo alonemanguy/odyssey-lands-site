@@ -653,7 +653,10 @@
     const statusDetail = document.getElementById('status-detail');
     const statusPlayers = document.getElementById('status-players');
     const statusTime = document.getElementById('status-time');
-    const statusEndpoint = 'https://api.mcsrvstat.us/3/odysseyland.aternos.me:56870';
+    const statusSources = [
+      'https://api.mcsrvstat.us/3/odysseyland.aternos.me:56870',
+      'https://api.mcstatus.io/v2/status/java/odysseyland.aternos.me:56870'
+    ];
     const checkTime = () => new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(new Date());
     const setState = (state, label, main, detail) => {
       statusCard.dataset.state = state;
@@ -661,26 +664,48 @@
       statusMain.textContent = main;
       statusDetail.textContent = detail;
     };
+    // Aternos keeps port 56870 open and answers the ping itself while the world
+    // is asleep: "§c● Offline" / "This server is offline.", players 0/50. So a
+    // service saying online is not enough - read what it actually answered.
+    const readStatus = (data) => {
+      if (!data || !data.online) return null;
+      const version = typeof data.version === 'string'
+        ? data.version
+        : (data.version && (data.version.name_clean || data.version.name));
+      const said = [version || '', data.motd ? JSON.stringify(data.motd) : ''].join(' ');
+      return /offline/i.test(said) ? 'sleeping' : 'open';
+    };
+    async function probeStatus(url) {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Status request failed');
+      const data = await response.json();
+      return { verdict: readStatus(data), data };
+    }
     async function loadServerStatus() {
       statusCard.dataset.state = 'checking';
       statusLabel.textContent = 'Checking the server...';
       statusMain.textContent = 'Reaching the harbour';
       statusDetail.textContent = 'Checking the current Minecraft connection.';
       statusPlayers.textContent = '—';
+      // Two independent probers, and only an answer that saw the world counts as
+      // "online". Neither one is allowed to declare it asleep: a free Aternos
+      // server that is awake can still be invisible to an outside ping, and
+      // showing "offline" over a live world sends people away for no reason.
+      let seen = [];
       try {
-        const response = await fetch(statusEndpoint, { cache: 'no-store' });
-        if (!response.ok) throw new Error('Status request failed');
-        const data = await response.json();
-        if (data.online) {
-          setState('online', 'Server online', 'The harbour is open.', 'The world is ready for the next voyage.');
-          statusPlayers.textContent = data.players && data.players.max ? data.players.online + ' / ' + data.players.max : '—';
-        } else if ((data.debug || {}).ping === true) {
-          setState('offline', 'Server offline', 'The harbour is resting.', 'Aternos may be asleep. Check again after it starts, or ask the crew what is moving next.');
-        } else {
-          setState('unknown', 'Status unverified', 'The tide is unclear.', 'Aternos blocks outside status checks, so this panel cannot confirm the harbour either way. Discord carries the live notice.');
-        }
+        const answers = await Promise.allSettled(statusSources.map(probeStatus));
+        seen = answers.map((answer) => answer.status === 'fulfilled' ? answer.value : null).filter(Boolean);
       } catch (error) {
-        setState('unknown', 'Status unverified', 'The tide is unclear.', 'The status service could not be reached. Try again in a moment, or check Discord for the live notice.');
+        seen = [];
+      }
+      const awake = seen.find((answer) => answer.verdict === 'open');
+      if (awake) {
+        setState('online', 'Server online', 'The harbour is open.', 'The world is ready for the next voyage.');
+        statusPlayers.textContent = awake.data.players && awake.data.players.max ? awake.data.players.online + ' / ' + awake.data.players.max : '—';
+      } else if (seen.some((answer) => answer.verdict === 'sleeping')) {
+        setState('offline', 'Server resting', 'The harbour is asleep.', 'Aternos stops an empty world. Ask in Discord and someone can bring it up, or join - the next arrival usually wakes it.');
+      } else {
+        setState('unknown', 'Status unverified', 'The tide is unclear.', 'The status services could not be reached. Try again in a moment, or ask in Discord for the live word.');
       }
       statusTime.textContent = checkTime();
     }
